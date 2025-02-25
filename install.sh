@@ -220,6 +220,7 @@ termux() {
     pkg install jq -y >/dev/null 2>&1
     pkg install figlet -y >/dev/null 2>&1
     pkg install termux-api -y >/dev/null 2>&1
+    pkg install lsd -y >/dev/null 2>&1
     termux-reload-settings
 }
 

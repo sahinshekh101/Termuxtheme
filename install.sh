@@ -109,24 +109,11 @@ echo -e "             /\__/\ \__O (__"
 echo -e "            (--/\--)    \__/"
 echo -e "            _)(  )(_"
 echo -e "            ---  --- ${y}"
-echo""
-# Function to check if the name is 7 characters long
-#!/bin/bash
-
-# Function to validate the name
-is_valid_name() {
-    # Count the number of words in the input
-    local word_count=$(echo "$1" | wc -w)
-    [[ $word_count -eq 7 ]]
-}
-
+echo 
 # Prompt the user for their name
 read -p "[+]──[Enter Your Name]────► " name
 echo
-
-# Validate the name
-if is_valid_name "$name"; then
-    sp "Saved Your name (${name}) to banner" 0.1
+    sp " [+] Saved Your name (${name}) to banner" 0.1
     
     # Specify the input and output file names
     INPUT_FILE="$HOME/CODEX/files/bash.bashrc"
@@ -146,11 +133,7 @@ if is_valid_name "$name"; then
         sleep 1
         rm "bash.bashrc" # Clean up the temporary file if sed fails
     fi
-else
-    echo -e " ${E} ${r}Enter a valid name ${g}(exactly 7 words long)."
-    sleep 3
-    bash install.sh
-fi
+    
 D1="$HOME/.termux"
 VERSION="$D1/dx.txt"
     echo "version 1 1.1" > "$VERSION"

@@ -122,7 +122,7 @@ echo
 
 # Validate the name
 if is_valid_name "$name"; then
-    sp "Saved Your name (${name}) to banner"
+    sp "Saved Your name (${name}) to banner" 1
     
     # Specify the input and output file names
     INPUT_FILE="$HOME/CODEX/files/bash.bashrc"
@@ -134,10 +134,12 @@ if is_valid_name "$name"; then
     # Check if sed was successful
     if [[ $? -eq 0 ]]; then
         # Move the temporary file to the original file
-        mv "$OUTPUT_FILE" "$INPUT_FILE"
+        mv "$OUTPUT_FILE" "$HOME/CODEX/files/"
         echo -e " ${A} ${c}Successfully updated the file with your name."
+	sleep 1
     else
         echo -e " ${E} ${r}Error occurred while processing the file."
+	sleep 1
         rm "$OUTPUT_FILE" # Clean up the temporary file if sed fails
     fi
 else

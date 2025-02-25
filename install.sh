@@ -74,6 +74,7 @@ cp $HOME/CODEX/files/bash.bashrc $PREFIX/etc/
 cp $HOME/CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
 mv $HOME/CODEX/files/remove /data/data/com.termux/files/usr/bin/
 chmod +x /data/data/com.termux/files/usr/bin/remove
+termux-reload-settings
 }
 dxnetcheck() {
 clear
@@ -218,6 +219,7 @@ termux() {
     pkg install ncurses-utils -y >/dev/null 2>&1
     pkg install jq -y >/dev/null 2>&1
     pkg install figlet -y >/dev/null 2>&1
+    pkg install termux-api -y >/dev/null 2>&1
 }
 
 

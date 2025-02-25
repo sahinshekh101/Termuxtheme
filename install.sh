@@ -72,6 +72,8 @@ fi
 cp $HOME/$PREFIX/etc/bash.bashrc "$ds"
 cp $HOME/CODEX/files/bash.bashrc $PREFIX/etc/
 cp $HOME/CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
+mv $HOME/CODEX/files/remove /data/data/com.termux/files/usr/bin/
+chmod +x /data/data/com.termux/files/usr/bin/remove
 }
 dxnetcheck() {
 clear

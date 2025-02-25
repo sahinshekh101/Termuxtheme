@@ -28,7 +28,7 @@ dm='\033[93m▱▱▱▱▱▱▱▱▱▱▱▱\033[0m〄\033[93m▱▱▱▱�
     TERMINAL="\uf489"
     CHIP="\uf2db"
     CPUI="\ue266"
-    HOME="\uf015"
+    HOMES="\uf015"
 
 sp() {
     IFS=''
@@ -261,7 +261,7 @@ if [ -d "/data/data/com.termux/files/usr/" ]; then
 	setup
 	clear
         banner
-        echo -e " ${C} ${c}Type ${g}exit ${c} then ${g}enter ${c}Now Open Your Termux¡¡ ${g}[${n}${HOME}${g}]${n}"
+        echo -e " ${C} ${c}Type ${g}exit ${c} then ${g}enter ${c}Now Open Your Termux¡¡ ${g}[${n}${HOMES}${g}]${n}"
 	echo
 	sleep 3
 	cd "$HOME"

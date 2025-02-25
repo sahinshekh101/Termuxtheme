@@ -111,8 +111,13 @@ echo -e "            _)(  )(_"
 echo -e "            ---  --- ${y}"
 echo""
 # Function to check if the name is 7 characters long
+#!/bin/bash
+
+# Function to validate the name
 is_valid_name() {
-    [[ ${#1} -eq 7 ]]
+    # Count the number of words in the input
+    local word_count=$(echo "$1" | wc -w)
+    [[ $word_count -eq 7 ]]
 }
 
 # Prompt the user for their name
@@ -125,7 +130,7 @@ if is_valid_name "$name"; then
     
     # Specify the input and output file names
     INPUT_FILE="$HOME/CODEX/files/bash.bashrc"
-     # Temporary file for output
+    # Temporary file for output
 
     # Use sed to replace SIMU with the name and save to a temporary file
     sed "s/SIMU/$name/g" "$INPUT_FILE" > "bash.bashrc"
@@ -135,19 +140,18 @@ if is_valid_name "$name"; then
         # Move the temporary file to the original file
         mv "bash.bashrc" "$HOME/CODEX/files/"
         echo -e " ${A} ${c}Successfully updated the file with your name."
-	sleep 1
+        sleep 1
     else
         echo -e " ${E} ${r}Error occurred while processing the file."
-	sleep 1
+        sleep 1
         rm "bash.bashrc" # Clean up the temporary file if sed fails
     fi
 else
-    echo -e " ${E} ${r}Enter a valid name ${g}(7 characters long)."
+    echo -e " ${E} ${r}Enter a valid name ${g}(exactly 7 words long)."
     sleep 3
     bash install.sh
 fi
-cd "$HOME"
-D1=".termux"
+D1="$HOME/.termux"
 VERSION="$D1/dx.txt"
     echo "version 1 1.1" > "$VERSION"
 echo

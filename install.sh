@@ -131,12 +131,24 @@ echo -e "            (--/\--)    \__/"
 echo -e "            _)(  )(_"
 echo -e "            ---  --- ${y}"
 echo""
+# Function to check if the name is 7 characters long
+is_valid_name() {
+    [[ ${#1} -eq 7 ]]
+}
+
+# Prompt the user for their name
 read -p "[+]──[Enter Your Name]────► " name
 echo
-cd $HOME
-sp " Saved Your name (${name}) to banner"
-FILE="CODEX/files/bash.bashrc"  # Specify the output file name
-cat CODEX/files/bash.bashrc | sed "s/SIMU/$name/g" > "$FILE"
+
+# Validate the name
+if is_valid_name "$name"; then
+    cd "$HOME" || exit 1  # Change to HOME directory, exit if it fails
+    sp "Saved Your name (${name}) to banner"
+    FILE="CODEX/files/bash.bashrc"  # Specify the output file name
+    cat CODEX/files/bash.bashrc | sed "s/SIMU/$name/g" > "$FILE"
+else
+    echo "Enter a valid name (7 characters long)."
+fi
 cd $HOME
 D1=".termux"
 VERSION="$D1/dx.txt"

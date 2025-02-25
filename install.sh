@@ -78,19 +78,19 @@ simu="$ds/colors.properties"
 if [ -f "$dx" ]; then
     echo
 else
-	cd $HOME
+	cd "$HOME"
 	cp CODEX/files/font.ttf "$ds"
 fi
 
 if [ -f "$simu" ]; then
     echo
 else
-	cd $HOME
+	cd "$HOME"
 	cp CODEX/files/colors.properties "$ds"
 fi
-cd $HOME
+cd "$HOME"
 cp $PREFIX/etc/bash.bashrc "$ds"
-cd $HOME
+cd "$HOME"
 cp CODEX/files/bash.bashrc $PREFIX/etc
 cp CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
 }
@@ -149,7 +149,7 @@ if is_valid_name "$name"; then
 else
     echo "Enter a valid name (7 characters long)."
 fi
-cd $HOME
+cd "$HOME"
 D1=".termux"
 VERSION="$D1/dx.txt"
     echo "version 1 1.1" > "$VERSION"
@@ -248,7 +248,7 @@ if [ -d "/data/data/com.termux/files/usr/" ]; then
     echo -e " ${lm}"
     sleep 3
     termux
-    cd $HOME
+    cd "$HOME"
     # dx check if D1DOS folder exists
     if [ -d "CODEX" ]; then
         cd CODEX
@@ -268,7 +268,7 @@ if [ -d "/data/data/com.termux/files/usr/" ]; then
         echo -e " ${C} ${c}Type ${g}exit ${c} then ${g}enter ${c}Now Open Your Termux¡¡ ${g}[${n}${HOME}${g}]${n}"
 	echo
 	sleep 3
-	cd $HOME
+	cd "$HOME"
 	rm -rf CODEX
 	exit 0
 	    else

@@ -2,7 +2,7 @@
 command_not_found_handle() {
     /data/data/com.termux/files/usr/libexec/termux/command-not-found "$1"
 }
-
+alias ls='lsd'
 # Add all icon code
 HOME_ICON="\uf002"  # Home icon
 FOLDER_ICON="\uf07b"  # Folder icon

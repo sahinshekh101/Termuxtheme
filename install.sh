@@ -60,8 +60,7 @@ simu="$ds/colors.properties"
 if [ -f "$dx" ]; then
     echo
 else
-	cd "$HOME"
-	cp CODEX/files/font.ttf "$ds"
+	cp $HOME/CODEX/files/font.ttf "$ds"
 fi
 
 if [ -f "$simu" ]; then
@@ -71,8 +70,8 @@ else
 	cp $HOME/CODEX/files/colors.properties "$ds"
 fi
 cp $HOME/$PREFIX/etc/bash.bashrc "$ds"
-cp $HOME/CODEX/files/bash.bashrc $HOME/$PREFIX/etc
-cp $HOME/CODEX/files/ASCII-Shadow.flf $HOME/$PREFIX/share/figlet/
+cp $HOME/CODEX/files/bash.bashrc $PREFIX/etc/
+cp $HOME/CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
 }
 dxnetcheck() {
 clear

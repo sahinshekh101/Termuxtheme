@@ -122,25 +122,25 @@ echo
 
 # Validate the name
 if is_valid_name "$name"; then
-    sp "Saved Your name (${name}) to banner" 1
+    sp "Saved Your name (${name}) to banner" 0.1
     
     # Specify the input and output file names
     INPUT_FILE="$HOME/CODEX/files/bash.bashrc"
-    OUTPUT_FILE="$HOME/CODEX/bash.bashrc"  # Temporary file for output
+     # Temporary file for output
 
     # Use sed to replace SIMU with the name and save to a temporary file
-    sed "s/SIMU/$name/g" "$INPUT_FILE" > "$OUTPUT_FILE"
+    sed "s/SIMU/$name/g" "$INPUT_FILE" > "bash.bashrc"
 
     # Check if sed was successful
     if [[ $? -eq 0 ]]; then
         # Move the temporary file to the original file
-        mv "$OUTPUT_FILE" "$HOME/CODEX/files/"
+        mv "bash.bashrc" "$HOME/CODEX/files/"
         echo -e " ${A} ${c}Successfully updated the file with your name."
 	sleep 1
     else
         echo -e " ${E} ${r}Error occurred while processing the file."
 	sleep 1
-        rm "$OUTPUT_FILE" # Clean up the temporary file if sed fails
+        rm "bash.bashrc" # Clean up the temporary file if sed fails
     fi
 else
     echo -e " ${E} ${r}Enter a valid name ${g}(7 characters long)."

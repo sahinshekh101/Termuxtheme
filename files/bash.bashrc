@@ -3,6 +3,9 @@ command_not_found_handle() {
     /data/data/com.termux/files/usr/libexec/termux/command-not-found "$1"
 }
 
+# Set the prompt string
+PS1='\n\[\e[36m\]┌─[\[\e[37m\]\T\[\e[36m\]]─────\e[1;93m[SIMU]\e[0;36m───[\#]\n|\n\e[0;36m└─[\[\e[36m\]\e[0;35m\W\[\e[36m\]]────► \e[1;92m'
+
 # Clear the terminal
 clear
 
@@ -86,7 +89,6 @@ if [ -n "$messages" ]; then
     cd CODEX
      bash install.sh
 else
-    echo ""
     clear
 fi
 }
@@ -138,7 +140,7 @@ ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 
 # Check if ads1 is empty
 if [ -z "$ads1" ]; then
-    echo -e ""
+cd $HOME
 else
     echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1\n"
     fi

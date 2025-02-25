@@ -18,24 +18,6 @@ C='\033[92m[\033[00m</>\033[92m]\033[92m'
 lm='\033[96m▱▱▱▱▱▱▱▱▱▱▱▱\033[0m〄\033[96m▱▱▱▱▱▱▱▱▱▱▱▱\033[1;00m'
 dm='\033[93m▱▱▱▱▱▱▱▱▱▱▱▱\033[0m〄\033[93m▱▱▱▱▱▱▱▱▱▱▱▱\033[1;00m'
 
-# dx info
-MODEL=$(getprop ro.product.model)
-VENDOR=$(getprop ro.product.manufacturer)
-LANGUAGE=$(getprop ro.product.locale.language)
-VS=$(getprop ro.build.version.release)
-UP=$(date +'%Y-%m-%d %H:%M')
-IP=$(curl -s ipinfo.io/ip)
-KERNEL=$(uname -r)
-SHELL=$(basename $SHELL)
-CPU=$(uname -m)
-RAM=$(free | grep Mem | awk '{print $2 / 1024 / 1024}')
-CPU_CORE=$(grep -c processor /proc/cpuinfo)
-TM=$(date +"%T")
-
-ROOT=$(df -h / | tail -1 | awk '{print $4}')
-DATA=$(df -h /data | tail -1 | awk '{print $4}')
-
-
 # dx icon
     OS="\uf6a6"
     HOST="\uf6c3"
@@ -72,7 +54,7 @@ fi
 # dx setup
 setup() {
 # dx move
-ds="/.termux"
+ds="$HOME/.termux"
 dx="$ds/font.ttf"
 simu="$ds/colors.properties"
 if [ -f "$dx" ]; then
@@ -84,15 +66,13 @@ fi
 
 if [ -f "$simu" ]; then
     echo
-else
-	cd "$HOME"
-	cp CODEX/files/colors.properties "$ds"
+else 
+        
+	cp $HOME/CODEX/files/colors.properties "$ds"
 fi
-cd "$HOME"
-cp $PREFIX/etc/bash.bashrc "$ds"
-cd "$HOME"
-cp CODEX/files/bash.bashrc $PREFIX/etc
-cp CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
+cp $HOME/$PREFIX/etc/bash.bashrc "$ds"
+cp $HOME/CODEX/files/bash.bashrc $HOME/$PREFIX/etc
+cp $HOME/CODEX/files/ASCII-Shadow.flf $HOME/$PREFIX/share/figlet/
 }
 dxnetcheck() {
 clear
@@ -142,12 +122,11 @@ echo
 
 # Validate the name
 if is_valid_name "$name"; then
-    cd "$HOME" || exit 1  # Change to HOME directory, exit if it fails
-    echo "Saved Your name (${name}) to banner"
+    sp "Saved Your name (${name}) to banner"
     
     # Specify the input and output file names
-    INPUT_FILE="CODEX/files/bash.bashrc"
-    OUTPUT_FILE="CODEX/files/bash.bashrc.tmp"  # Temporary file for output
+    INPUT_FILE="$HOME/CODEX/files/bash.bashrc"
+    OUTPUT_FILE="$HOME/CODEX/bash.bashrc"  # Temporary file for output
 
     # Use sed to replace SIMU with the name and save to a temporary file
     sed "s/SIMU/$name/g" "$INPUT_FILE" > "$OUTPUT_FILE"
@@ -156,13 +135,15 @@ if is_valid_name "$name"; then
     if [[ $? -eq 0 ]]; then
         # Move the temporary file to the original file
         mv "$OUTPUT_FILE" "$INPUT_FILE"
-        echo "Successfully updated the file with your name."
+        echo -e " ${A} ${c}Successfully updated the file with your name."
     else
-        echo "Error occurred while processing the file."
-        rm "$OUTPUT_FILE"  # Clean up the temporary file if sed fails
+        echo -e " ${E} ${r}Error occurred while processing the file."
+        rm "$OUTPUT_FILE" # Clean up the temporary file if sed fails
     fi
 else
-    echo "Enter a valid name (7 characters long)."
+    echo -e " ${E} ${r}Enter a valid name ${g}(7 characters long)."
+    sleep 3
+    bash install.sh
 fi
 cd "$HOME"
 D1=".termux"
@@ -263,10 +244,8 @@ if [ -d "/data/data/com.termux/files/usr/" ]; then
     echo -e " ${lm}"
     sleep 3
     termux
-    cd "$HOME"
     # dx check if D1DOS folder exists
-    if [ -d "CODEX" ]; then
-        cd CODEX
+    if [ -d "$HOME/CODEX" ]; then
         sleep 2
 	clear
 	banner

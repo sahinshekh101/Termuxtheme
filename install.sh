@@ -69,8 +69,7 @@ else
         
 	cp $HOME/CODEX/files/colors.properties "$ds"
 fi
-cp $HOME/CODEX/files/.bashrc $HOME
-source ~/.bashrc
+
 cp $HOME/$PREFIX/etc/bash.bashrc "$ds"
 cp $HOME/CODEX/files/bash.bashrc $PREFIX/etc/
 cp $HOME/CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/

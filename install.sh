@@ -143,9 +143,24 @@ echo
 # Validate the name
 if is_valid_name "$name"; then
     cd "$HOME" || exit 1  # Change to HOME directory, exit if it fails
-    sp "Saved Your name (${name}) to banner"
-    FILE="CODEX/files/bash.bashrc"  # Specify the output file name
-    cat CODEX/files/bash.bashrc | sed "s/SIMU/$name/g" > "$FILE"
+    echo "Saved Your name (${name}) to banner"
+    
+    # Specify the input and output file names
+    INPUT_FILE="CODEX/files/bash.bashrc"
+    OUTPUT_FILE="CODEX/files/bash.bashrc.tmp"  # Temporary file for output
+
+    # Use sed to replace SIMU with the name and save to a temporary file
+    sed "s/SIMU/$name/g" "$INPUT_FILE" > "$OUTPUT_FILE"
+
+    # Check if sed was successful
+    if [[ $? -eq 0 ]]; then
+        # Move the temporary file to the original file
+        mv "$OUTPUT_FILE" "$INPUT_FILE"
+        echo "Successfully updated the file with your name."
+    else
+        echo "Error occurred while processing the file."
+        rm "$OUTPUT_FILE"  # Clean up the temporary file if sed fails
+    fi
 else
     echo "Enter a valid name (7 characters long)."
 fi

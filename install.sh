@@ -140,7 +140,7 @@ echo
     
 D1="$HOME/.termux"
 VERSION="$D1/dx.txt"
-    echo "version 1 1.1" > "$VERSION"
+    echo "version 1 1.2" > "$VERSION"
 echo
 clear
 echo ""

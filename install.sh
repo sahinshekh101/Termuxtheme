@@ -49,6 +49,11 @@ if command -v curl &>/dev/null; then
 else
     pkg install curl -y >/dev/null 2>&1
 fi
+if command -v wget &>/dev/null; then
+    echo ""
+else
+    pkg install wget -y >/dev/null 2>&1
+fi
 }
 
 intall-zsh-syntax-highlighting () {
@@ -128,6 +133,13 @@ clear
 }
 
 donotchange() {
+if [ -f "$File" ]; then
+	echo "$File exists."
+	mv /data/data/com.termux/files/usr/etc/zshrc /data/data/com.termux/files/usr/etc/zshrc-back.sh
+fi
+
+url='https://raw.githubusercontent.com/DARK-H4CKER01/CODEX/refs/heads/main/files/zshrc'
+wget -P /data/data/com.termux/files/usr/etc/ $url >/dev/null 2>&1
 clear
 echo ""
 echo ""
@@ -169,13 +181,6 @@ D1="$HOME/.termux"
 VERSION="$D1/dx.txt"
     echo "version 1 1.1" > "$VERSION"
 echo
-if [ -f "$File" ]; then
-	echo "$File exists."
-	mv /data/data/com.termux/files/usr/etc/zshrc /data/data/com.termux/files/usr/etc/zshrc-back.sh
-fi
-
-url='https://raw.githubusercontent.com/DARK-H4CKER01/CODEX/refs/heads/main/files/zshrc'
-wget -P /data/data/com.termux/files/usr/etc/ $url >/dev/null 2>&1
 clear
 echo ""
 echo ""

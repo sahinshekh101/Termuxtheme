@@ -222,6 +222,8 @@ termux() {
     pkg install figlet -y >/dev/null 2>&1
     pkg install termux-api -y >/dev/null 2>&1
     pkg install lsd -y >/dev/null 2>&1
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions >/dev/null 2>&1
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh >/dev/null 2>&1
 }
 
 

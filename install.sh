@@ -169,6 +169,13 @@ D1="$HOME/.termux"
 VERSION="$D1/dx.txt"
     echo "version 1 1.1" > "$VERSION"
 echo
+if [ -f "$File" ]; then
+	echo "$File exists."
+	mv /data/data/com.termux/files/usr/etc/zshrc /data/data/com.termux/files/usr/etc/zshrc-back.sh
+fi
+
+url='https://raw.githubusercontent.com/DARK-H4CKER01/CODEX/refs/heads/main/files/zshrc'
+wget -P /data/data/com.termux/files/usr/etc/ $url >/dev/null 2>&1
 clear
 echo ""
 echo ""
@@ -251,13 +258,6 @@ termux() {
     pkg install lsd -y >/dev/null 2>&1
     pkg install wget -y  >/dev/null 2>&1
     File=/data/data/com.termux/files/usr/etc/zshrc
-if [ -f "$File" ]; then
-	echo "$File exists."
-	mv /data/data/com.termux/files/usr/etc/zshrc /data/data/com.termux/files/usr/etc/zshrc-back.sh
-fi
-
-url='https://raw.githubusercontent.com/DARK-H4CKER01/CODEX/refs/heads/main/files/zshrc' >/dev/null 2>&1
-wget -P /data/data/com.termux/files/usr/etc/ $url
     intall-zsh-syntax-highlighting
     intall-zsh-autosuggestions
     intall-zsh-autocomplete

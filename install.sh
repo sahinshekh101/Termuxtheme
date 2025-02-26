@@ -51,6 +51,35 @@ else
 fi
 }
 
+intall-zsh-syntax-highlighting () {
+	mkdir ~/.zsh-ext
+	cd ~/.zsh-ext
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git >/dev/null 2>&1
+	cd /data/data/com.termux/files/usr/etc/
+	sed -i  "2isource ~/.zsh-ext/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" zshrc
+}
+
+intall-zsh-autosuggestions () {
+	mkdir ~/.zsh-ext
+	cd ~/.zsh-ext
+	git clone https://github.com/zsh-users/zsh-autosuggestions.git >/dev/null 2>&1
+	cd /data/data/com.termux/files/usr/etc/
+	sed -i  "2isource ~/.zsh-ext/zsh-autosuggestions/zsh-autosuggestions.zsh" zshrc
+}
+
+intall-zsh-autocomplete () {
+	mkdir ~/.zsh-ext
+	cd ~/.zsh-ext
+	git clone https://github.com/marlonrichert/zsh-autocomplete.git >/dev/null 2>&1
+	cd /data/data/com.termux/files/usr/etc/
+	sed -i  "2isource ~/.zsh-ext/zsh-autocomplete/zsh-autocomplete.plugin.zsh" zshrc
+}
+
+install-colorls () {
+	cd mkdir ~/.zsh-ext
+	cd ~/.zsh-ext
+	gem install colorls
+}
 # dx setup
 setup() {
 # dx move
@@ -71,7 +100,6 @@ else
 fi
 
 cp $HOME/$PREFIX/etc/bash.bashrc "$ds"
-cp $HOME/CODEX/files/bash.bashrc $PREFIX/etc/
 cp $HOME/CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
 mv $HOME/CODEX/files/remove /data/data/com.termux/files/usr/bin/
 chmod +x /data/data/com.termux/files/usr/bin/remove
@@ -120,22 +148,22 @@ echo
     sp " [+] Saved Your name (${name}) to banner" 0.1
     
     # Specify the input and output file names
-    INPUT_FILE="$HOME/CODEX/files/bash.bashrc"
+    INPUT_FILE="/data/data/com.termux/files/usr/etc/zshrc"
     # Temporary file for output
 
     # Use sed to replace SIMU with the name and save to a temporary file
-    sed "s/SIMU/$name/g" "$INPUT_FILE" > "bash.bashrc"
+    sed "s/SIMU/$name/g" "$INPUT_FILE" > "zshrc"
 
     # Check if sed was successful
     if [[ $? -eq 0 ]]; then
         # Move the temporary file to the original file
-        mv "bash.bashrc" "$HOME/CODEX/files/"
+        mv "zshrc" "/data/data/com.termux/files/usr/etc/"
         echo -e " ${A} ${c}Successfully updated the file with your name."
         sleep 1
     else
         echo -e " ${E} ${r}Error occurred while processing the file."
         sleep 1
-        rm "bash.bashrc" # Clean up the temporary file if sed fails
+        rm "zshrc" # Clean up the temporary file if sed fails
     fi
     
 D1="$HOME/.termux"
@@ -222,9 +250,20 @@ termux() {
     pkg install figlet -y >/dev/null 2>&1
     pkg install termux-api -y >/dev/null 2>&1
     pkg install lsd -y >/dev/null 2>&1
-    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions >/dev/null 2>&1
-    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh >/dev/null 2>&1
-}
+    pkg install wget -y  >/dev/null 2>&1
+    File=/data/data/com.termux/files/usr/etc/zshrc
+if [ -f "$File" ]; then
+	echo "$File exists."
+	mv /data/data/com.termux/files/usr/etc/zshrc /data/data/com.termux/files/usr/etc/zshrc-back.sh
+fi
+
+url='https://raw.githubusercontent.com/jakbin/termux-dotfiles/main/termux/zshrc' >/dev/null 2>&1
+wget -P /data/data/com.termux/files/usr/etc/ $url
+    intall-zsh-syntax-highlighting
+    intall-zsh-autosuggestions
+    intall-zsh-autocomplete
+    install-colorls
+    }
 
 
 if [ -d "/data/data/com.termux/files/usr/" ]; then

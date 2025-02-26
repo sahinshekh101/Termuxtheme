@@ -99,7 +99,6 @@ else
 	cp $HOME/CODEX/files/colors.properties "$ds"
 fi
 
-cp $HOME/$PREFIX/etc/bash.bashrc "$ds"
 cp $HOME/CODEX/files/ASCII-Shadow.flf $PREFIX/share/figlet/
 mv $HOME/CODEX/files/remove /data/data/com.termux/files/usr/bin/
 chmod +x /data/data/com.termux/files/usr/bin/remove
@@ -257,7 +256,7 @@ if [ -f "$File" ]; then
 	mv /data/data/com.termux/files/usr/etc/zshrc /data/data/com.termux/files/usr/etc/zshrc-back.sh
 fi
 
-url='https://raw.githubusercontent.com/jakbin/termux-dotfiles/main/termux/zshrc' >/dev/null 2>&1
+url='https://raw.githubusercontent.com/DARK-H4CKER01/CODEX/refs/heads/main/files/zshrc' >/dev/null 2>&1
 wget -P /data/data/com.termux/files/usr/etc/ $url
     intall-zsh-syntax-highlighting
     intall-zsh-autosuggestions

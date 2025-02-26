@@ -4,7 +4,7 @@ command_not_found_handle() {
 }
 
 # Set the prompt string
-PS1="\[\e[36m\]┌[CODEX〄SIMU\[\e[0m\]]─[\A]─[\#]\n\[\e[36m\]|\n└─[\w]──\[\e[32m\]╼: ̗̀➤ \[\e[32m\]"
+PS1="\n\[\e[36m\]┌\[\e[32m\][\[\e[0m\]CODEX\[\e[31m\]〄\[\e[0m\]SIMU\[\e[32m\]]\[\e[36m\]─\[\e[32m\][\[\e[0m\]\T\[\e[32m\]]\[\e[36m\]─\[\e[32m\][\[\e[30m\]\#\[\e[32m\]]\n\[\e[36m\]|\n\[\e[36m\]└─\[\e[32m\][\[\e[0m\]\W\[\e[32m\]]\[\e[36m\]──╼\[\e[1;31m\]❯\[\e[1;34m\]❯\[\e[1;90m\]❯ \[\e[32m\]"
 alias ls='lsd'
 # Clear the terminal
 clear

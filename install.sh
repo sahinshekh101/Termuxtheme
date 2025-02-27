@@ -238,7 +238,7 @@ termux() {
 if [ -d "/data/data/com.termux/files/usr/" ]; then
     tr
     dxnetcheck
-    donotchange
+    
     banner
     echo -e " ${C} ${y}Detected Termux on Android¡"
 	echo -e " ${lm}"
@@ -261,6 +261,7 @@ if [ -d "/data/data/com.termux/files/usr/" ]; then
 	echo
 	echo -e " ${A} ${g}Wait a few minutes.${n}"
 	setup
+        donotchange
 	clear
         banner
         echo -e " ${C} ${c}Type ${g}exit ${c} then ${g}enter ${c}Now Open Your Termux¡¡ ${g}[${n}${HOMES}${g}]${n}"

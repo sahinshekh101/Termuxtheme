@@ -167,15 +167,18 @@ termux() {
     apt upgrade -y >/dev/null 2>&1
     pkg install git -y >/dev/null 2>&1
     pkg install python -y >/dev/null 2>&1
+    echo -e " ${X} ${g}Brother Are You O'K....¡🥲${n}"
+    echo -e " ${dm}"
     pip install lolcat >/dev/null 2>&1
     pkg install ncurses-utils -y >/dev/null 2>&1
     pkg install jq -y >/dev/null 2>&1
+    echo -e " ${X} ${g}You like: I can't wait any longer.....¡😂${n}"
+    echo -e " ${lm}"
     pkg install figlet -y >/dev/null 2>&1
     pkg install termux-api -y >/dev/null 2>&1
     pkg install lsd -y >/dev/null 2>&1
     pkg install zsh -y >/dev/null 2>&1
     pkg install ruby -y  >/dev/null 2>&1
-    gem install lolcat >/dev/null 2>&1
     echo -e " ${X} ${g}Uhu dear Don't Exit please Wait....¡😒${n}"
     echo -e " ${dm}"
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1

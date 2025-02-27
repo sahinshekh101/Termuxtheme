@@ -8,6 +8,7 @@ source /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions/z
 source /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias ls='lsd'
 alias rd='termux-reload-settings'
+alias clear='zsh'
 # Clear the terminal
 clear
 

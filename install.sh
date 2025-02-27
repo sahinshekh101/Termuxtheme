@@ -103,7 +103,7 @@ clear
     echo
     echo -e ""
     echo -e "${c}              (\_/)"
-    echo -e "              (${y}^ω^${c})     ${A} ${g}Hey dear${c}"
+    echo -e "              (${y}^_^${c})     ${A} ${g}Hey dear${c}"
     echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"
     echo
     echo -e " ${A} ${c}Please Enter Your ${g}Banner Name${c}"
@@ -145,58 +145,6 @@ D1="$HOME/.termux"
 VERSION="$D1/dx.txt"
     echo "version 1 1.2" > "$VERSION"
 echo
-clear
-echo ""
-echo ""
-echo -e "${p}        💜     __"
-echo -e "       _(\    |${b}@@${p}|         ${g}Hey 👋 ${p}"
-echo -e "      (__/\__ \--/ __    ${C} ${g}$name${p}"
-echo -e "         \___|----|  |   __"
-echo -e "             \ ${c}][ ${p}/\ )_ / _\ "
-echo -e "             /\__/\ \__O (__"
-echo -e "            (--/\--)    \__/"
-echo -e "            _)(  )(_"
-echo -e "            ---  --- ${n}"
-sleep 2
-clear
-echo ""
-echo ""
-echo -e "${p}        💛     __"
-echo -e "       _(\    |${b}@@${p}|             ${c}$name${p}"
-echo -e "      (__/\__ \--/ __    ${C} ${g}WELCOME${p}"
-echo -e "         \___|----|  |   __"
-echo -e "             \ ${c}][ ${p}/\ )_ / _\ "
-echo -e "             /\__/\ \__O (__"
-echo -e "            (--/\--)    \__/"
-echo -e "            _)(  )(_"
-echo -e "            ---  --- ${n}"
-sleep 1
-clear
-echo ""
-echo ""
-echo -e "${p}        💖     __"
-echo -e "       _(\    |${b}@@${p}|             ${c}$name${p}"
-echo -e "      (__/\__ \--/ __    ${C} ${g}TO${p}"
-echo -e "         \___|----|  |   __"
-echo -e "             \ ${c}][ ${p}/\ )_ / _\ "
-echo -e "             /\__/\ \__O (__"
-echo -e "            (--/\--)    \__/"
-echo -e "            _)(  )(_"
-echo -e "            ---  --- ${n}"
-sleep 1
-clear
-echo ""
-echo ""
-echo -e "${p}        🥰     __"
-echo -e "       _(\    |${b}@@${p}|             ${c}$name${p}"
-echo -e "      (__/\__ \--/ __    ${C} ${g}DARK BANNER${p}"
-echo -e "         \___|----|  |   __"
-echo -e "             \ ${c}][ ${p}/\ )_ / _\ "
-echo -e "             /\__/\ \__O (__"
-echo -e "            (--/\--)    \__/"
-echo -e "            _)(  )(_"
-echo -e "            ---  --- ${n}"
-sleep 2
 clear
 }
 

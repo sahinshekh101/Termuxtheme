@@ -143,9 +143,8 @@ ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 
 # Check if ads1 is empty
 if [ -z "$ads1" ]; then
-DATE=$(date +"%Y-%b-%a ${c}|${g} %d")
-    TM=$(date +"%I:%M:%S ${c}— ${g}%p")¹clear
-
+DATE=$(date +"%Y-%b-%a ${g}—${g} %d")
+TM=$(date +"%I:%M:%S ${g}— ${g}%p")
 echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}"
 else
     echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1\n"

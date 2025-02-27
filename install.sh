@@ -99,22 +99,18 @@ clear
 
 donotchange() {
 clear
-echo ""
-echo ""
-echo -e "${c}               __"
-echo -e "       _(\    |${r}@@${c}|            ${g}Hey 👋 ${c}"
-echo -e "      (__/\__ \--/ __    ${p}[Enter Your Name]${c}"
-echo -e "         \___|----|  |   __"
-echo -e "             \ ${p}][ ${c}/\ )_ / _\ "
-echo -e "             /\__/\ \__O (__"
-echo -e "            (--/\--)    \__/"
-echo -e "            _)(  )(_"
-echo -e "            ---  --- ${y}"
-echo 
+    echo
+    echo
+    echo -e ""
+    echo -e "${c}              (\_/)"
+    echo -e "              (${y}^ω^${c})     ${A} ${g}Hey dear${c}"
+    echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"
+    echo
+    echo -e " ${A} ${c}Please Enter Your ${g}Banner Name${c}"
+    echo
 # Prompt the user for their name
 read -p "[+]──[Enter Your Name]────► " name
 echo
-    sp " [+] Saved Your name (${name}) to banner" 0.1
     
     # Specify the input and output file names
     INPUT_FILE="$HOME/CODEX/files/.zshrc"
@@ -127,9 +123,17 @@ echo
     # Check if sed was successful
     if [[ $? -eq 0 ]]; then
         # Move the temporary file to the original file
-        echo
-        echo -e " ${A} ${c}Successfully updated the file with your name."
-        sleep 1
+        clear
+    echo
+    echo
+    echo -e "		        ${g}Hey ${y}$name"
+    echo -e "${c}              (\_/)"
+    echo -e "              (${y}^ω^${c})     ${g}I'm Dx-Simu${c}"
+    echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"
+    echo
+    echo -e " ${A} ${c}Your Banner created ${g}Successfully¡${c}"
+    echo
+    sleep 3
     else
         echo
         echo -e " ${E} ${r}Error occurred while processing the file."

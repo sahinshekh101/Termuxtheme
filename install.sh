@@ -1,20 +1,20 @@
 #bin/bash/'!¡
 clear
 # dx color
-r='\033[91m'
-p='\033[95m'
-y='\033[93m'
-g='\033[92m'
-n='\033[0m'
-b='\033[94m'
-c='\033[96m'
+r='\033[1;91m'
+p='\033[1;95m'
+y='\033[1;93m'
+g='\033[1;92m'
+n='\033[1;0m'
+b='\033[1;94m'
+c='\033[1;96m'
 
 # dx Symbol
-X='\033[92m[\033[00m⎯꯭̽𓆩\033[92m]\033[96m'
-D='\033[92m[\033[00m〄\033[92m]\033[93m'
-E='\033[92m[\033[00m×\033[92m]\033[91m'
-A='\033[92m[\033[00m+\033[92m]\033[92m'
-C='\033[92m[\033[00m</>\033[92m]\033[92m'
+X='\033[1;92m[\033[1;00m⎯꯭̽𓆩\033[1;92m]\033[1;96m'
+D='\033[1;92m[\033[1;00m〄\033[1;92m]\033[1;93m'
+E='\033[1;92m[\033[1;00m×\033[1;92m]\033[1;91m'
+A='\033[1;92m[\033[1;00m+\033[1;92m]\033[1;92m'
+C='\033[1;92m[\033[1;00m</>\033[1;92m]\033[92m'
 lm='\033[96m▱▱▱▱▱▱▱▱▱▱▱▱\033[0m〄\033[96m▱▱▱▱▱▱▱▱▱▱▱▱\033[1;00m'
 dm='\033[93m▱▱▱▱▱▱▱▱▱▱▱▱\033[0m〄\033[93m▱▱▱▱▱▱▱▱▱▱▱▱\033[1;00m'
 
@@ -224,9 +224,15 @@ termux() {
     pkg install zsh -y >/dev/null 2>&1
     pkg install ruby -y  >/dev/null 2>&1
     gem install lolcat >/dev/null 2>&1
+    echo -e " ${X} ${g}Uhu dear Don't Exit please Wait....¡😒${n}"
+    echo -e " ${dm}"
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1
-    pkg install toilet figlet exa -y >/dev/null 2>&1
+    pkg install exa -y >/dev/null 2>&1
     rm -rf /data/data/com.termux/files/usr/etc/motd
+    echo -e " ${X} ${g}Your patience is very good....¡😚${n}"
+    echo -e " ${lm}"
+    echo -e " ${X} ${g}Wait a little longer.....¡🙂${n}"
+    echo -e  "${dm}"
     chsh -s zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
     git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1

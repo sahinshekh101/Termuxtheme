@@ -32,6 +32,7 @@ aHELL="\uf489"
 USER="\uf007"
 TERMINAL="\ue7a2"
 PKGS="\uf8d6"
+UPT="\uf49b"
 
 spin() {
 clear
@@ -142,7 +143,10 @@ ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 
 # Check if ads1 is empty
 if [ -z "$ads1" ]; then
-cd $HOME
+DATE=$(date +"%Y-%b-%a ${c}|${g} %d")
+    TM=$(date +"%I:%M:%S ${c}— ${g}%p")¹clear
+
+echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}"
 else
     echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1\n"
     fi

@@ -1,4 +1,3 @@
-#echo ""
 ZSH_THEME="codex"
 export ZSH=$HOME/.oh-my-zsh
 plugins=(git)
@@ -148,6 +147,6 @@ DATE=$(date +"%Y-%b-%a ${g}—${c} %d")
 TM=$(date +"%I:%M:%S ${g}— ${c}%p")
 echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}"
 else
-    echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1\n"
+    echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1"
     fi
 NORM

@@ -51,6 +51,52 @@ else
 fi
 }
 
+spin() {
+    clear
+    banner
+    local delay=0.40
+    local spinner=('█■■■■' '■█■■■' '■■█■■' '■■■█■' '■■■■█')
+
+    # Function to show the spinner while a command is running
+    show_spinner() {
+        local pid=$!
+        while ps -p $pid > /dev/null; do
+            for i in "${spinner[@]}"; do
+                tput civis
+                echo -ne "\033[1;96m\r [+] Installing $1... please wait.........\e[33m[\033[1;92m$i\033[1;93m]\033[1;0m   "
+                sleep $delay
+                printf "\b\b\b\b\b\b\b\b"
+            done
+        done
+        printf "   \b\b\b\b\b"
+        tput cnorm
+        printf "\e[1;93m [Done $1]\e[0m\n"
+        echo
+        sleep 1
+    }
+
+    apt update >/dev/null 2>&1
+    apt upgrade -y >/dev/null 2>&1
+
+    # List of packages to install
+    packages=("git" "python" "ncurses-utils" "jq" "figlet" "termux-api" "lsd" "zsh" "ruby" "exa")
+
+    # Install each package with spinner
+    for package in "${packages[@]}"; do
+        pkg install "$package" -y >/dev/null 2>&1 &
+        show_spinner "$package"
+    done
+
+pip install lolcat >/dev/null 2>&1
+mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat
+chmod +x /data/data/com.termux/files/usr/bin/chat
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1
+rm -rf /data/data/com.termux/files/usr/etc/motd
+chsh -s zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting >/dev/null 2>&1
+}
 # dx setup
 setup() {
 # dx move
@@ -163,38 +209,7 @@ echo -e "${y}               +-+-+-+-+-+-+-+-+-+${n}"
 echo
 }
 termux() {
-    apt update >/dev/null 2>&1
-    apt upgrade -y >/dev/null 2>&1
-    pkg install git -y >/dev/null 2>&1
-    pkg install python -y >/dev/null 2>&1
-    echo -e " ${X} ${g}Brother Are You O'K....¡🥲${n}"
-    echo -e " ${dm}"
-    pip install lolcat >/dev/null 2>&1
-    pkg install ncurses-utils -y >/dev/null 2>&1
-    pkg install jq -y >/dev/null 2>&1
-    echo -e " ${X} ${g}You like: I can't wait any longer.....¡😂${n}"
-    echo -e " ${lm}"
-    pkg install figlet -y >/dev/null 2>&1
-    pkg install termux-api -y >/dev/null 2>&1
-    pkg install lsd -y >/dev/null 2>&1
-    pkg install zsh -y >/dev/null 2>&1
-    pkg install ruby -y  >/dev/null 2>&1
-    echo -e " ${X} ${g}Uhu dear Don't Exit please Wait....¡😒${n}"
-    echo -e " ${dm}"
-    mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat
-    chmod +x /data/data/com.termux/files/usr/bin/chat
-    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1
-    pkg install exa -y >/dev/null 2>&1
-    rm -rf /data/data/com.termux/files/usr/etc/motd
-    echo -e " ${X} ${g}Your patience is very good....¡😚${n}"
-    echo -e " ${lm}"
-    echo -e " ${X} ${g}Wait a little longer.....¡🙂${n}"
-    echo -e  "${dm}"
-    chsh -s zsh
-    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting >/dev/null 2>&1
-
+spin
 }
 
 

@@ -47,13 +47,17 @@ tr() {
 if command -v curl &>/dev/null; then
     echo ""
 else
-    pkg install curl -y >/dev/null 2>&1
+    pkg install curl -y &>/dev/null 2>&1
+fi
+if command -v ncurses-utils -y &>/dev/null; then
+    echo ""
+else
+    pkg install ncurses-utils -y >/dev/null 2>&1
 fi
 }
 
 spin() {
-    clear
-    banner
+echo
     local delay=0.40
     local spinner=('█■■■■' '■█■■■' '■■█■■' '■■■█■' '■■■■█')
 
@@ -63,7 +67,7 @@ spin() {
         while ps -p $pid > /dev/null; do
             for i in "${spinner[@]}"; do
                 tput civis
-                echo -ne "\033[1;96m\r [+] Installing $1... please wait.........\e[33m[\033[1;92m$i\033[1;93m]\033[1;0m   "
+                echo -ne "\033[1;96m\r [+] Installing $1 please wait \e[33m[\033[1;92m$i\033[1;93m]\033[1;0m   "
                 sleep $delay
                 printf "\b\b\b\b\b\b\b\b"
             done

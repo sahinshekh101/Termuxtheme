@@ -228,7 +228,6 @@ if [ -d "/data/data/com.termux/files/usr/" ]; then
 	echo -e " ${dm}"
     echo -e " ${A} ${g}Wait a few minutes.${n}"
     echo -e " ${lm}"
-    sleep 3
     termux
     # dx check if D1DOS folder exists
     if [ -d "$HOME/CODEX" ]; then

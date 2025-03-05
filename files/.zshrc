@@ -37,79 +37,7 @@ UPT="\uf49b"
 
 bol='\033[1m'
 bold="${bol}\e[4m"
-API_KEY="AIzaSyC3kWArZpJwbxGVev3uv2AEUrjHoxpPYt0"
 
-format_response() {
-    local text="$1"
-
-    # Use sed to replace newlines and formatting markers
-    text=$(echo "$text" | sed -e 's/\\n/\n/g' \
-                               -e 's/\*\*\(.*\)\*\*/'"$bold"'\1'"$n"'/g' \
-                               -e 's/\*\(.*\)\*/'"$bol"'\1'"$n"'/g')
-
-    # Add blue color to the input text
-    echo -e "\n ${D} ${c}〄 DX-SIMU ⎙ ${text}${n}"
-}
-
-# Function to call the Gemini AI API
-gemini_run() {
-    local user_input="$1"
-
-    # Display greeting message if no input is provided
-    if [[ -z "$user_input" ]]; then
-        echo -e "\n ${D} ${c}${bold}Hey Dear! I'm ${g}DX-SIMU. ${c}I can help you.${n}"
-        echo -e " ${g}Please ask me anything.${n}"
-        return
-    fi
-
-    # Check for specific keywords
-    if [[ "$user_input" == *"DARK-X"* || "$user_input" == *"dark-x"* || "$user_input" == *"dx"* ]]; then
-        echo -e "\n ${D} ${g}DARK-X ${c}is my creator.${n}"
-        return
-    fi
-
-    # Example responses based on user input
-    if [[ "$user_input" == *"your name"* ]]; then
-        echo -e "\n ${D} ${c}My name is ${g}Dx-Simu.${n}"
-        return
-    elif [[ "$user_input" == *"your creator"* ]]; then
-        echo -e "\n ${D} ${c}My Creator is ${g}DX-CODEX ${c}& ${g}DS-CODEX.${n}"
-        return
-    fi
-
-    # If the input is not a specific query, call the Gemini API
-    response=$(curl -s -w "%{http_code}" -o response.json "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$API_KEY" \
-    -H 'Content-Type: application/json' \
-    -X POST \
-    -d "{
-      \"contents\": [{
-        \"parts\":[{\"text\": \"$user_input\"}]
-      }]
-    }")
-
-    # Check for network errors
-    if [[ $? -ne 0 ]]; then
-        echo -e "\n ${E} ${r}Network error"
-        return 1
-    fi
-
-    # Check the HTTP response code
-    if [[ "$response" -ne 200 ]]; then
-        case "$response" in
-            400) echo -e "\n ${E} ${r}Bad Request: The server could not understand the request." ;;
-            401) echo -e "\n ${E} ${r}Unauthorized: API key is invalid." ;;
-            403) echo -e "\n ${E} ${r}Forbidden: You do not have permission to access this resource." ;;
-            404) echo -e "\n ${E} ${r}Not Found: The requested resource could not be found." ;;
-            500) echo -e "\n ${E} ${r}Internal Server Error: The server encountered an error." ;;
-            *) echo -e "\n ${E} ${g}Server Error: ${c}Received ${g}$response" ;;
-        esac
-        return 1
-    fi
-
-    # Extract and format the response
-    formatted_response=$(jq -r '.contents[0].parts[0].text' response.json)
-    format_response "$formatted_response"
-}
 spin() {
 clear
 banner

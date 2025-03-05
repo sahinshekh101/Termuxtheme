@@ -41,13 +41,11 @@ API_KEY="AIzaSyC3kWArZpJwbxGVev3uv2AEUrjHoxpPYt0"
 
 format_response() {
     local text="$1"
-    # Replace formatting markers with ANSI escape codes
-    text=$(echo "$text" | sed -e 's/^=\(.*\)$/\1\n/' \
-                               -e 's/^\*\(.*\)$/\1/' \
-                               -e 's/\*\(.*\)/'"$bold"'\1'"$n"'/g' \
-                               -e 's/""\(.*\)""/'"$c"'\1'"$n"'/g' \
-                               -e 's/''\(.*\)''/'"$y"'\1'"$n"'/g' \
-                               -e 's/\n/\n/g') # This line is just to ensure new lines are preserved
+
+    # Use sed to replace newlines and formatting markers
+    text=$(echo "$text" | sed -e 's/\\n/\n/g' \
+                               -e 's/\*\*\(.*\)\*\*/'"$bold"'\1'"$n"'/g' \
+                               -e 's/\*\(.*\)\*/'"$bol"'\1'"$n"'/g')
 
     # Add blue color to the input text
     echo -e "\n ${D} ${c}〄 DX-SIMU ⎙ ${text}${n}"
@@ -97,19 +95,19 @@ gemini_run() {
 
     # Check the HTTP response code
     if [[ "$response" -ne 200 ]]; then
-        echo -e "\n ${E} ${g}Server Error: ${c}Received ${g}$response"
+        case "$response" in
+            400) echo -e "\n ${E} ${r}Bad Request: The server could not understand the request." ;;
+            401) echo -e "\n ${E} ${r}Unauthorized: API key is invalid." ;;
+            403) echo -e "\n ${E} ${r}Forbidden: You do not have permission to access this resource." ;;
+            404) echo -e "\n ${E} ${r}Not Found: The requested resource could not be found." ;;
+            500) echo -e "\n ${E} ${r}Internal Server Error: The server encountered an error." ;;
+            *) echo -e "\n ${E} ${g}Server Error: ${c}Received ${g}$response" ;;
+        esac
         return 1
     fi
 
     # Extract and format the response
     formatted_response=$(jq -r '.contents[0].parts[0].text' response.json)
-
-    # Check if the formatted response is empty
-    if [[ -z "$formatted_response" ]]; then
-        echo -e "\n ${E} ${r}No response received from the API."
-        return 1
-    fi
-
     format_response "$formatted_response"
 }
 spin() {

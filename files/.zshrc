@@ -6,6 +6,7 @@ source $HOME/.oh*/oh-my-zsh.sh
 source /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias ls='lsd'
+alias simu='gemini_run'
 alias rd='termux-reload-settings'
 
 # Clear the terminal
@@ -33,6 +34,79 @@ USER="\uf007"
 TERMINAL="\ue7a2"
 PKGS="\uf8d6"
 UPT="\uf49b"
+
+bol='\033[1m'
+bold='$bol\e[4m'
+
+API_KEY="AIzaSyC3kWArZpJwbxGVev3uv2AEUrjHoxpPYt0"
+
+
+format_response() {
+    local text="$1"
+    # Replace formatting markers with ANSI escape codes
+    text=$(echo "$text" | sed -e 's/^=\(.*\)$/\1\n/' \
+                               -e 's/^\*\(.*\)$/\1/' \
+                               -e 's/\*\(.*\)/'"$bold"'\1'"$n"'/g' \
+                               -e 's/""\(.*\)""/'"$c"'\1'"$n"'/g' \
+                               -e 's/''\(.*\)''/'"$y"'\1'"$n"'/g' \
+                               -e 's/\n/\n/g') # This line is just to ensure new lines are preserved
+
+    # Add blue color to the input text
+    echo -e "\n ${D} ${c}〄 DX-SIMU ⎙ ${text}${n}"
+}
+
+# Function to call the Gemini AI API
+gemini_run() {
+    local user_input="$1"
+
+    # Display greeting message if no input is provided
+    if [[ -z "$user_input" ]]; then
+        echo -e "\n ${D} ${c}${bold}Hey Dear! I'm ${g}DX-SIMU. ${c}I can help you.${n}"
+        echo -e " ${g}Please ask me anything.${n}"
+        return
+    fi
+
+    # Check for specific keywords
+    if [[ "$user_input" == *"DARK-X"* || "$user_input" == *"dark-x"* || "$user_input" == *"dx"* ]]; then
+        echo -e "\n ${D} ${g}DARK-X ${c}is a my creator.${n}"
+        return
+    fi
+
+    # Example responses based on user input
+    if [[ "$user_input" == *"your name"* ]]; then
+        echo -e "\n ${D} ${c}My name is ${g}Dx-Simu.${n}"
+        return
+    elif [[ "$user_input" == *"your creator"* ]]; then
+        echo -e "\n ${D} ${c}My Creator is ${g}DX-CODEX ${c}& ${g}DS-CODEX.${n}"
+        return
+    fi
+
+    # If the input is not a specific query, call the Gemini API
+    response=$(curl -s -w "%{http_code}" -o response.json "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$API_KEY" \
+    -H 'Content-Type: application/json' \
+    -X POST \
+    -d "{
+      \"contents\": [{
+        \"parts\":[{\"text\": \"$user_input\"}]
+      }]
+    }")
+
+    # Check for network errors
+    if [[ $? -ne 0 ]]; then
+        echo -e "\n ${E} ${r}Network error"
+        return 1
+    fi
+
+    # Check the HTTP response code
+    if [[ "$response" -ne 200 ]]; then
+        echo -e "\n ${E} ${g}Server Error: ${c}Received ${g}$response"
+        return 1
+    fi
+
+    # Extract and format the response
+    formatted_response=$(jq -r '.contents[0].parts[0].text' response.json)
+    format_response "$formatted_response"
+}
 
 spin() {
 clear

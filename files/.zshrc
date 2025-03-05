@@ -36,10 +36,8 @@ PKGS="\uf8d6"
 UPT="\uf49b"
 
 bol='\033[1m'
-bold='$bol\e[4m'
-
+bold="${bol}\e[4m"
 API_KEY="AIzaSyC3kWArZpJwbxGVev3uv2AEUrjHoxpPYt0"
-
 
 format_response() {
     local text="$1"
@@ -68,7 +66,7 @@ gemini_run() {
 
     # Check for specific keywords
     if [[ "$user_input" == *"DARK-X"* || "$user_input" == *"dark-x"* || "$user_input" == *"dx"* ]]; then
-        echo -e "\n ${D} ${g}DARK-X ${c}is a my creator.${n}"
+        echo -e "\n ${D} ${g}DARK-X ${c}is my creator.${n}"
         return
     fi
 
@@ -105,9 +103,15 @@ gemini_run() {
 
     # Extract and format the response
     formatted_response=$(jq -r '.contents[0].parts[0].text' response.json)
+
+    # Check if the formatted response is empty
+    if [[ -z "$formatted_response" ]]; then
+        echo -e "\n ${E} ${r}No response received from the API."
+        return 1
+    fi
+
     format_response "$formatted_response"
 }
-
 spin() {
 clear
 banner

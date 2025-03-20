@@ -92,6 +92,7 @@ echo
     done
 
 pip install lolcat >/dev/null 2>&1
+rm -rf data/data/com.termux/files/usr/bin/chat
 mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat
 chmod +x /data/data/com.termux/files/usr/bin/chat
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1

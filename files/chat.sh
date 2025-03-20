@@ -24,7 +24,7 @@ lm='\033[1;96m▱▱▱▱▱▱\033[1;0m〄\033[1;96m▱▱▱▱▱▱\033[1;0
 dm='\033[1;93m▱▱▱▱▱▱\033[1;0m〄\033[1;93m▱▱▱▱▱▱\033[1;00m'
 
 
-URL="https://codex-chat-server.glitch.me"
+URL="https://codex-banner-chat.glitch.me"
 USERNAME_DIR="$HOME/.CODEX"
 USERNAME_FILE="$USERNAME_DIR/usernames.txt"
 random_number=$(( RANDOM % 2 ))

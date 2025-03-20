@@ -92,12 +92,13 @@ echo
     done
 
 pip install lolcat >/dev/null 2>&1
-rm -rf data/data/com.termux/files/usr/bin/chat
+rm -rf data/data/com.termux/files/usr/bin/chat >/dev/null 2>&1
 mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat
 chmod +x /data/data/com.termux/files/usr/bin/chat
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1
 rm -rf /data/data/com.termux/files/usr/etc/motd
 chsh -s zsh
+rm -rf ~/.zshrc >/dev/null 2>&1
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting >/dev/null 2>&1

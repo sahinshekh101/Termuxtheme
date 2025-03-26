@@ -50,6 +50,12 @@ if [ "$disk_usage" -ge "$THRESHOLD" ]; then
     fi
 }
 
+width=$(stty size | awk '{print $2}')
+symbols_length=3
+spaces=$((width - symbols_length - data_length - 1))  
+output="${TERMINAL}${r}●${y}●${b}●${n}$(printf "%${spaces}s" "")$data"
+data_length=${#data}
+
 data=$(check_disk_usage)
 spin() {
 clear
@@ -140,7 +146,7 @@ udp
 HIDECURSOR
 load
 clear
-echo -e " ${TERMINAL}${r}●${y}●${b}●${n}\033[36;1m"
+echo -e "$output"
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"
@@ -162,7 +168,7 @@ ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 if [ -z "$ads1" ]; then
 DATE=$(date +"%Y-%b-%a ${g}—${c} %d")
 TM=$(date +"%I:%M:%S ${g}— ${c}%p")
-echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE} ${c}| $data"
+echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}"
 else
     echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1"
     fi

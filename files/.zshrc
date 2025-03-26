@@ -44,10 +44,9 @@ check_disk_usage() {
     local used_size=$(df -h / | awk 'NR==2 {print $3}')
     local disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
 if [ "$disk_usage" -ge "$THRESHOLD" ]; then
-        echo -e " ${E} ${r}WARN: ${c}Disk Full ${g}${disk_usage}% ${c}| ${g}${used_size}"
+        echo -e " ${g}[${n}\uf0a0${g}] ${r}WARN: ${c}Disk Full ${g}${disk_usage}% ${c}| ${g}${used_size}"
     else
-        # If usage is normal, return normal message
-        echo -e " ${D} ${c}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
+        echo -e " ${g}[${n}\uf0e7${g}] ${c}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
     fi
 }
 
@@ -163,7 +162,7 @@ ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 if [ -z "$ads1" ]; then
 DATE=$(date +"%Y-%b-%a ${g}—${c} %d")
 TM=$(date +"%I:%M:%S ${g}— ${c}%p")
-echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}   $data"
+echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE} ${c}| $data"
 else
     echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1"
     fi

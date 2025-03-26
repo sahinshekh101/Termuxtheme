@@ -49,14 +49,12 @@ if [ "$disk_usage" -ge "$THRESHOLD" ]; then
         echo -e " ${g}[${n}\uf0e7${g}] ${c}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
     fi
 }
-
+data=$(check_disk_usage)
 width=$(stty size | awk '{print $2}')
 symbols_length=3
-spaces=$((width - symbols_length - data_length - 1))  
+spaces=$((width - symbols_length - data - 1))  
 output="${TERMINAL}${r}●${y}●${b}●${n}$(printf "%${spaces}s" "")$data"
-data_length=${#data}
 
-data=$(check_disk_usage)
 spin() {
 clear
 banner

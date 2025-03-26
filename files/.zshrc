@@ -52,7 +52,7 @@ if [ "$disk_usage" -ge "$THRESHOLD" ]; then
 data=$(check_disk_usage)
 width=$(stty size | awk '{print $2}')
 symbols_length=3
-spaces=$((width - symbols_length - data - 1))  
+spaces=$((width - symbols_length - 1))  
 output="${TERMINAL}${r}●${y}●${b}●${n}$(printf "%${spaces}s" "")$data"
 
 spin() {

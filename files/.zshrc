@@ -49,8 +49,11 @@ check_disk_usage() {
         echo -e " ${g}[${n}\uf0e7${g}] ${c}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
     fi
 }
-
+widths=$(stty size | awk '{print $2}')
+symbols_length=3
 data=$(check_disk_usage)
+formatted_data=$(printf "%-${available_space}s" "$data")
+
 spin() {
 clear
 banner
@@ -140,7 +143,7 @@ udp
 HIDECURSOR
 load
 clear
-echo -e "${TERMINAL}${r}●${y}●${b}●${n}${c}" "$widths$data"
+echo -e "${TERMINAL}${r}●${y}●${b}●${n} ${formatted_data}${c}
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"

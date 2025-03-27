@@ -51,19 +51,6 @@ check_disk_usage() {
 }
 
 data=$(check_disk_usage)
-width=$(stty size | awk '{print $2}')
-symbols_length=3
-Data1="#data"
-# Calculate the length of Data1
-Data1_length=${#Data1}
-spaces=$((width - symbols_length - Data1_length - 1))  
-
-# Ensure spaces is not negative
-if [ $spaces -lt 0 ]; then
-    spaces=0
-fi
-
-output="${TERMINAL}${r}●${y}●${b}●${n}$(printf "%${spaces}s" "")$data"  # Output the final result
 spin() {
 clear
 banner
@@ -153,7 +140,7 @@ udp
 HIDECURSOR
 load
 clear
-echo -e "$output${c}"
+echo -e "${TERMINAL}${r}●${y}●${b}●${n}${c}" "$widths$data"
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"

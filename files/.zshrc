@@ -38,23 +38,32 @@ UPT="\uf49b"
 bol='\033[1m'
 bold="${bol}\e[4m"
 THRESHOLD=80
-
 check_disk_usage() {
     local total_size=$(df -h / | awk 'NR==2 {print $2}')
     local used_size=$(df -h / | awk 'NR==2 {print $3}')
     local disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
-if [ "$disk_usage" -ge "$THRESHOLD" ]; then
+
+    if [ "$disk_usage" -ge "$THRESHOLD" ]; then
         echo -e " ${g}[${n}\uf0a0${g}] ${r}WARN: ${c}Disk Full ${g}${disk_usage}% ${c}| ${g}${used_size}"
     else
         echo -e " ${g}[${n}\uf0e7${g}] ${c}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
     fi
 }
+
 data=$(check_disk_usage)
 width=$(stty size | awk '{print $2}')
 symbols_length=3
-spaces=$((width - symbols_length - 1))  
-output="${TERMINAL}${r}●${y}●${b}●${n}$(printf "%${spaces}s" "")$data"
+Data1="#data"
+# Calculate the length of Data1
+Data1_length=${#Data1}
+spaces=$((width - symbols_length - Data1_length - 1))  
 
+# Ensure spaces is not negative
+if [ $spaces -lt 0 ]; then
+    spaces=0
+fi
+
+output="${TERMINAL}${r}●${y}●${b}●${n}$(printf "%${spaces}s" "")$data"  # Output the final result
 spin() {
 clear
 banner
@@ -144,7 +153,7 @@ udp
 HIDECURSOR
 load
 clear
-echo -e "$output"
+echo -e "$output${c}"
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"

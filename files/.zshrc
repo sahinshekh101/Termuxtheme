@@ -37,20 +37,29 @@ UPT="\uf49b"
 
 bol='\033[1m'
 bold="${bol}\e[4m"
-THRESHOLD=80
+THRESHOLD=100
 check_disk_usage() {
-    local total_size=$(df -h / | awk 'NR==2 {print $2}')
-    local used_size=$(df -h / | awk 'NR==2 {print $3}')
-    local disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
+    local threshold=${1:-$THRESHOLD}  # Use passed argument or default to THRESHOLD
+    local total_size
+    local used_size
+    local disk_usage
 
-    if [ "$disk_usage" -ge "$THRESHOLD" ]; then
-        echo -e " ${g}[${n}\uf0a0${g}] ${r}WARN: ${c}Disk Full ${g}${disk_usage}% ${c}| ${g}${used_size}"
+    # Get total size, used size, and disk usage percentage for the home directory
+    total_size=$(df -h "$HOME" | awk 'NR==2 {print $2}')
+    used_size=$(df -h "$HOME" | awk 'NR==2 {print $3}')
+    disk_usage=$(df "$HOME" | awk 'NR==2 {print $5}' | sed 's/%//g')
+
+    # Check if the disk usage exceeds the threshold
+    if [ "$disk_usage" -ge "$threshold" ]; then
+        echo -e " ${g}[${n}\uf0a0${g}] ${r}WARN: ${c}Disk Full ${g}${disk_usage}% ${c}| ${c}U${g}${used_size} ${c}of ${c}T${g}${total_size}"
     else
-        echo -e " ${g}[${n}\uf0e7${g}] ${c}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
+        echo -e " ${g}[${n}\uf0e7${g}] ${c}Disk usage: ${g}${disk_usage}% ${c}| ${c}U${g}${used_size} ${c}of ${c}T${g}${total_size}"
     fi
 }
 
+# Call the function and store the output
 data=$(check_disk_usage)
+
 
 spin() {
 clear

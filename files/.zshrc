@@ -90,7 +90,7 @@ VERSION="$D1/dx.txt"
 if [ -f "$VERSION" ]; then
     version=$(cat "$VERSION")
 else
-    echo "version 1 1.4" > "$VERSION"
+    echo "version 1 1.5" > "$VERSION"
     version=$(cat "$VERSION")
 fi
 

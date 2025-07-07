@@ -164,7 +164,7 @@ for ((i=1; i<=7; i++)); do
     echo "║"
 done
 PUT 10 ${var4}
-echo -e "\e[32m[\e[0m\uf489\e[32m] \e[36mCODEX \e[36m1 1.3\e[0m"
+echo -e "\e[32m[\e[0m\uf489\e[32m] \e[36mCODEX \e[36m1 1.4\e[0m"
 PUT 12 0
 ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 

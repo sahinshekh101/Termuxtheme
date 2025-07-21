@@ -105,9 +105,6 @@ echo -e "    ${c}╚█████╔╝╚█████╔╝█████
 echo -e "    ${c}░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝${n}"
 echo
 }
-udp() {
-    clear
-    messages=$(curl -s "$CODEX/check_version" | jq -r --arg vs "$version" '.[] | select(.message == $vs) | .message')
 
 # Check if any messages were found and display them
 if [ -n "$messages" ]; then

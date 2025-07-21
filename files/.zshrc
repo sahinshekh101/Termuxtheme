@@ -118,7 +118,6 @@ if [ -n "$messages" ]; then
 else
     clear
 fi
-}
 
 load() {
 clear

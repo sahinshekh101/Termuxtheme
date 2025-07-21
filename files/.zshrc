@@ -83,17 +83,6 @@ banner
     sleep 1
 }
 
-CODEX="https://codex-360-dx.glitch.me"
-cd $HOME
-D1=".termux"
-VERSION="$D1/dx.txt"
-if [ -f "$VERSION" ]; then
-    version=$(cat "$VERSION")
-else
-    echo '{ "version": "1.5" }' > "$VERSION"
-    version=$(cat "$VERSION")
-fi
-
 banner() {
 clear
 echo
@@ -164,12 +153,5 @@ echo -e "\e[32m[\e[0m\uf489\e[32m] \e[36mCODEX \e[36m1 1.4\e[0m"
 PUT 12 0
 ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 
-# Check if ads1 is empty
-if [ -z "$ads1" ]; then
-DATE=$(date +"%Y-%b-%a ${g}—${c} %d")
-TM=$(date +"%I:%M:%S ${g}— ${c}%p")
-echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}"
-else
-    echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1"
-    fi
+# Check if ads1 is emp
 NORM

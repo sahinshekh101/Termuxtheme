@@ -150,7 +150,7 @@ udp
 HIDECURSOR
 load
 clear
-echo -e "${TERMINAL}${r}●${y}●${b}●${n}        ${data}${c}"
+echo -e " ${TERMINAL}${r}●${y}●${b}●${n}        ${data}${c}"
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"

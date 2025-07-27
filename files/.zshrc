@@ -125,13 +125,13 @@ fi
 
 load() {
 clear
-echo -e " ${TERMINAL}${r}●${n}"
+echo -e "${TERMINAL}${r}●${n}"
 sleep 0.2
 clear
-echo -e " ${TERMINAL}${r}●${y}●${n}"
+echo -e "${TERMINAL}${r}●${y}●${n}"
 sleep 0.2
 clear
-echo -e " ${TERMINAL}${r}●${y}●${b}●${n}"
+echo -e "${TERMINAL}${r}●${y}●${b}●${n}"
 sleep 0.2
 }
 widths=$(stty size | awk '{print $2}')  # Get terminal width
@@ -150,7 +150,7 @@ udp
 HIDECURSOR
 load
 clear
-echo -e " ${TERMINAL}${r}●${y}●${b}●${n}        ${data}${c}"
+echo -e "${TERMINAL}${r}●${y}●${b}●${n}        ${data}${c}"
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"

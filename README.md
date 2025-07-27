@@ -39,7 +39,7 @@ exit
 ### AT ONCE :
 
 ```
-apt update && apt upgrade -y ; pkg install git -y ; git clone https://github.com/DARK-H4CKER01/CODEX.git ; cd CODEX/ ; chmod +x * ; bash install.sh
+apt update && apt upgrade -y ; pkg install git -y ; git clone https://github.com/Alpha-Codex369/CODEX.git ; cd CODEX/ ; chmod +x * ; bash install.sh
 ```
 
 <details id="missing-code-coverage">

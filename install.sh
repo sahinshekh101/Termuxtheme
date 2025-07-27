@@ -279,7 +279,7 @@ termux() {
 spin
 }
 
-setup() {
+setupx() {
 if [ -d "/data/data/com.termux/files/usr/" ]; then
     tr
     dxnetcheck
@@ -396,7 +396,7 @@ while true; do
                 fi
                 ;;
             *) # Ignore other escape sequences
-                continue
+                display_menu
                 ;;
         esac
     elif [[ "$input" == "" ]]; then # Enter key
@@ -404,7 +404,7 @@ while true; do
             "Free Usage")
             echo -e "\n ${g}[${n}${HOMES}${g}] ${c}Continue Free..!${n}"
                 sleep 1
-                setup
+                setupx
                 ;;
             "Premium")
                 echo -e "\n ${g}[${n}${HOST}${g}] ${c}Wait for opening Telegram..!${n}"

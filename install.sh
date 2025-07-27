@@ -29,7 +29,45 @@ dm='\033[93m▱▱▱▱▱▱▱▱▱▱▱▱\033[0m〄\033[93m▱▱▱▱�
     CHIP="\uf2db"
     CPUI="\ue266"
     HOMES="\uf015"
+MODEL=$(getprop ro.product.model)
+VENDOR=$(getprop ro.product.manufacturer)
+devicename="${VENDOR} ${MODEL}"
+THRESHOLD=100
+exit_script() {
+clear
+    echo
+    echo
+    echo -e ""
+    echo -e "${c}              (\_/)"
+    echo -e "              (${y}^_^${c})     ${A} ${g}Hey dear${c}"
+    echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"              
+    echo -e "\n ${g}[${n}${KER}${g}] ${c}Exiting ${g}Codex Banner \033[1;36m"
+    echo
+    cd "$HOME"
+	rm -rf CODEX
+    exit 0
+}
 
+trap exit_script SIGINT SIGTSTP
+check_disk_usage() {
+    local threshold=${1:-$THRESHOLD}  # Use passed argument or default to THRESHOLD
+    local total_size
+    local used_size
+    local disk_usage
+
+    # Get total size, used size, and disk usage percentage for the home directory
+    total_size=$(df -h "$HOME" | awk 'NR==2 {print $2}')
+    used_size=$(df -h "$HOME" | awk 'NR==2 {print $3}')
+    disk_usage=$(df "$HOME" | awk 'NR==2 {print $5}' | sed 's/%//g')
+
+    # Check if the disk usage exceeds the threshold
+    if [ "$disk_usage" -ge "$threshold" ]; then
+        echo -e "${g}[${n}\uf0a0${g}] ${r}WARN: ${y}Disk Full ${g}${disk_usage}% ${c}| ${c}U${g}${used_size} ${c}of ${c}T${g}${total_size}"
+    else
+        echo -e "${y}Disk usage: ${g}${disk_usage}% ${c}| ${g}${used_size}"
+    fi
+}
+data=$(check_disk_usage)
 sp() {
     IFS=''
     sentence=$1
@@ -41,7 +79,7 @@ sp() {
     done
     echo
 }
-
+mkdir -p .Codex-simu
 tr() {
 # Check if curl is installed
 if command -v curl &>/dev/null; then
@@ -55,7 +93,22 @@ else
     pkg install ncurses-utils -y >/dev/null 2>&1
 fi
 }
-
+help() {
+clear
+echo
+echo -e " ${p}■ \e[4m${g}Use Button\e[4m ${p}▪︎${n}"
+    echo
+echo -e " ${y}Use Termux Extra key Button${n}"
+echo
+echo -e " UP          ↑"
+echo -e " DOWN        ↓"
+echo
+echo -e " ${g}Select option Click Enter button"
+echo
+echo -e " ${b}■ \e[4m${c}If you understand, click the Enter Button\e[4m ${b}▪︎${n}"
+read -p ""
+}
+help
 spin() {
 echo
     local delay=0.40
@@ -93,6 +146,7 @@ echo
 
 pip install lolcat >/dev/null 2>&1
 rm -rf data/data/com.termux/files/usr/bin/chat >/dev/null 2>&1
+mv $HOME/CODEX/files/report $HOME/.Codex-simu
 mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat
 mv $HOME/CODEX/files/lolcat /data/data/com.termux/files/usr/bin/lolcat
 chmod +x /data/data/com.termux/files/usr/bin/lolcat
@@ -173,7 +227,7 @@ echo
     # Use sed to replace SIMU with the name and save to a temporary file
     sed "s/SIMU/$name/g" "$INPUT_FILE" > "$HOME/.zshrc"
     sed "s/SIMU/$name/g" "$HOME/CODEX/files/.codex.zsh-theme" > "$HOME/.oh-my-zsh/themes/codex.zsh-theme"
-
+    echo "$name" > "$USERNAME_FILE"
     # Check if sed was successful
     if [[ $? -eq 0 ]]; then
         # Move the temporary file to the original file
@@ -196,6 +250,7 @@ echo
     fi
     
 D1="$HOME/.termux"
+USERNAME_FILE="$D1/usernames.txt"
 VERSION="$D1/dx.txt"
     echo "version 1 1.5" > "$VERSION"
 echo
@@ -211,16 +266,22 @@ echo -e "   ${y}██║░░╚═╝██║░░██║██║░░�
 echo -e "   ${c}██║░░██╗██║░░██║██║░░██║██╔══╝░░░██╔██╗░"
 echo -e "   ${c}╚█████╔╝╚█████╔╝██████╔╝███████╗██╔╝╚██╗"
 echo -e "   ${c}░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝${n}"
-echo -e "${y}               +-+-+-+-+-+-+-+-+-+"
-echo -e "${c}               |B|Y|-|D|A|R|K|-|S|"
-echo -e "${y}               +-+-+-+-+-+-+-+-+-+${n}"
+echo -e "${y}               +-+-+-+-+-+-+-+-+"
+echo -e "${c}               |D|S|-|C|O|D|E|X|"
+echo -e "${y}               +-+-+-+-+-+-+-+-+${n}"
+echo
+echo
+echo -e "${b}╭══ ${g}〄 ${y}ᴄᴏᴅᴇx ${g}〄"
+echo -e "${b}┃❁ ${g}ᴄʀᴇᴀᴛᴏʀ: ${y}ᴅx-ᴄᴏᴅᴇx"
+echo -e "${b}┃❁ ${g}ᴅᴇᴠɪᴄᴇ: ${y}${VENDOR} ${MODEL}"
+echo -e "${b}╰┈➤ ${g}Hey ${y}Dear"
 echo
 }
 termux() {
 spin
 }
 
-
+setup() {
 if [ -d "/data/data/com.termux/files/usr/" ]; then
     tr
     dxnetcheck
@@ -272,3 +333,89 @@ echo -e " ${A} ${g} Wait for the next update using Linux...!¡"
 	sleep 3
 	exit
     fi
+}
+banner2() {
+echo
+echo
+echo -e "   ${y}░█████╗░░█████╗░██████╗░███████╗██╗░░██╗"
+echo -e "   ${y}██╔══██╗██╔══██╗██╔══██╗██╔════╝╚██╗██╔╝"
+echo -e "   ${y}██║░░╚═╝██║░░██║██║░░██║█████╗░░░╚███╔╝░"
+echo -e "   ${c}██║░░██╗██║░░██║██║░░██║██╔══╝░░░██╔██╗░"
+echo -e "   ${c}╚█████╔╝╚█████╔╝██████╔╝███████╗██╔╝╚██╗"
+echo -e "   ${c}░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝${n}"
+echo -e "${y}               +-+-+-+-+-+-+-+-+"
+echo -e "${c}               |D|S|-|C|O|D|E|X|"
+echo -e "${y}               +-+-+-+-+-+-+-+-+${n}"
+echo
+echo -e "${b}╭══ ${g}〄 ${y}ᴄᴏᴅᴇx ${g}〄"
+echo -e "${b}┃❁ ${g}ᴄʀᴇᴀᴛᴏʀ: ${y}ᴅx-ᴄᴏᴅᴇx"
+echo -e "${b}┃❁ ${g}ᴅᴇᴠɪᴄᴇ: ${y}${VENDOR} ${MODEL}"
+echo -e "${b}╰┈➤ ${g}Hey ${y}Dear"
+echo
+echo -e "${c}╭════════════════════════════════════════════════⊷"
+echo -e "${c}┃ ${p}❏ ${g}Choose what you want to use. then Click Enter${n}"
+echo -e "${c}╰════════════════════════════════════════════════⊷"
+
+}
+options=("Free Usage" "Premium")
+selected=0
+display_menu() {
+    clear
+    banner2
+    echo
+    echo -e " ${g}■ \e[4m${p}Select An Option\e[0m ${g}▪︎${n}"
+    echo
+    for i in "${!options[@]}"; do
+        if [ $i -eq $selected ]; then
+            echo -e " ${g}〄> ${c}${options[$i]} ${g}<〄${n}"
+        else
+            echo -e "     ${options[$i]}"
+        fi
+    done
+}
+
+# Main loop
+while true; do
+    display_menu
+
+    # Read a single character input with no echo
+    read -rsn1 input
+
+    # Handle escape sequences for arrow keys
+    if [[ "$input" == $'\e' ]]; then
+        read -rsn2 -t 0.1 input
+        case "$input" in
+            '[A') # Up arrow
+                ((selected--))
+                if [ $selected -lt 0 ]; then
+                    selected=$((${#options[@]} - 1))
+                fi
+                ;;
+            '[B') # Down arrow
+                ((selected++))
+                if [ $selected -ge ${#options[@]} ]; then
+                    selected=0
+                fi
+                ;;
+            *) # Ignore other escape sequences
+                continue
+                ;;
+        esac
+    elif [[ "$input" == "" ]]; then # Enter key
+        case ${options[$selected]} in
+            "Free Usage")
+            echo -e "\n ${g}[${n}${HOMES}${g}] ${c}Continue Free..!${n}"
+                sleep 1
+                setup
+                ;;
+            "Premium")
+                echo -e "\n ${g}[${n}${HOST}${g}] ${c}Wait for opening Telegram..!${n}"
+                sleep 1
+                xdg-open "https://t.me/Codexownerbot"
+                cd "$HOME"
+            	rm -rf CODEX
+                exit 0
+                ;;
+        esac
+    fi
+done

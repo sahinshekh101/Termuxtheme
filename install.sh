@@ -43,8 +43,6 @@ clear
     echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"              
     echo -e "\n ${g}[${n}${KER}${g}] ${c}Exiting ${g}Codex Banner \033[1;36m"
     echo
-    cd "$HOME"
-	rm -rf CODEX
     exit 0
 }
 

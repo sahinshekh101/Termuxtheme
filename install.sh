@@ -33,6 +33,7 @@ MODEL=$(getprop ro.product.model)
 VENDOR=$(getprop ro.product.manufacturer)
 devicename="${VENDOR} ${MODEL}"
 THRESHOLD=100
+random_number=$(( RANDOM % 2 ))
 exit_script() {
 clear
     echo
@@ -270,6 +271,15 @@ echo -e "${y}               +-+-+-+-+-+-+-+-+"
 echo -e "${c}               |D|S|-|C|O|D|E|X|"
 echo -e "${y}               +-+-+-+-+-+-+-+-+${n}"
 echo
+ if [ $random_number -eq 0 ]; then
+echo -e "${b}╭════════════════════════⊷"
+echo -e "${b}┃ ${g}[${n}ム${g}] ᴛɢ: ${y}t.me/Termuxcodex"
+echo -e "${b}╰════════════════════════⊷"
+        else
+echo -e "${b}╭══════════════════════════⊷"
+echo -e "${b}┃ ${g}[${n}ム${g}] ᴛɢ: ${y}t.me/alphacodex369"
+echo -e "${b}╰══════════════════════════⊷"
+        fi
 echo
 echo -e "${b}╭══ ${g}〄 ${y}ᴄᴏᴅᴇx ${g}〄"
 echo -e "${b}┃❁ ${g}ᴄʀᴇᴀᴛᴏʀ: ${y}ᴅx-ᴄᴏᴅᴇx"
@@ -347,9 +357,18 @@ echo -e "${y}               +-+-+-+-+-+-+-+-+"
 echo -e "${c}               |D|S|-|C|O|D|E|X|"
 echo -e "${y}               +-+-+-+-+-+-+-+-+${n}"
 echo
+ if [ $random_number -eq 0 ]; then
+echo -e "${b}╭════════════════════════⊷"
+echo -e "${b}┃ ${g}[${n}ム${g}] ᴛɢ: ${y}t.me/Termuxcodex"
+echo -e "${b}╰════════════════════════⊷"
+        else
+echo -e "${b}╭══════════════════════════⊷"
+echo -e "${b}┃ ${g}[${n}ム${g}] ᴛɢ: ${y}t.me/alphacodex369"
+echo -e "${b}╰══════════════════════════⊷"
+        fi
+echo
 echo -e "${b}╭══ ${g}〄 ${y}ᴄᴏᴅᴇx ${g}〄"
 echo -e "${b}┃❁ ${g}ᴄʀᴇᴀᴛᴏʀ: ${y}ᴅx-ᴄᴏᴅᴇx"
-echo -e "${b}┃❁ ${g}ᴅᴇᴠɪᴄᴇ: ${y}${VENDOR} ${MODEL}"
 echo -e "${b}╰┈➤ ${g}Hey ${y}Dear"
 echo
 echo -e "${c}╭════════════════════════════════════════════════⊷"

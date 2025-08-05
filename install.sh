@@ -135,6 +135,7 @@ echo
 
     apt update >/dev/null 2>&1
     apt upgrade -y >/dev/null 2>&1
+    echo "y" | gem install lolcat > /dev/null
 
     # List of packages to install
     packages=("git" "python" "ncurses-utils" "jq" "figlet" "termux-api" "lsd" "zsh" "ruby" "exa")

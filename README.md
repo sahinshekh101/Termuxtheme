@@ -4,8 +4,8 @@
 
 <p align="center"><b>Codex Banner</b <code></code></p>
 
-[![Telegram1](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/Termuxcodex)
-[![Telegram2](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/alphacodex369)
+  [![Telegram1](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/Termuxcodex)
+  [![Telegram2](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/alphacodex369)
 
 
 

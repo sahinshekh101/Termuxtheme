@@ -4,7 +4,6 @@
 
 <p align="center"><b>Codex Banner</b <code></code></p>
 
-  [![Telegram1](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/Termuxcodex)
   [![Telegram2](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/alphacodex369)
 
 
@@ -55,3 +54,5 @@ apt update && apt upgrade -y ; pkg install git -y ; git clone https://github.com
 ```
 
 </details>
+
+  [![Telegram1](https://img.shields.io/badge/TELEGRAM-CHANNEL-red?style=for-the-badge&logo=telegram)](https://t.me/Termuxcodex)

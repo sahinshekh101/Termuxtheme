@@ -143,7 +143,6 @@ echo
         pkg install "$package" -y >/dev/null 2>&1 &
         show_spinner "$package"
     done
-echo "y" | gem install lolcat > /dev/null
 
 pip install lolcat >/dev/null 2>&1
 rm -rf data/data/com.termux/files/usr/bin/chat >/dev/null 2>&1
@@ -159,6 +158,7 @@ rm -rf ~/.zshrc >/dev/null 2>&1
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting >/dev/null 2>&1
+echo "y" | gem install lolcat > /dev/null
 }
 # dx setup
 setup() {

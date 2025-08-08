@@ -135,8 +135,6 @@ echo
 
     apt update >/dev/null 2>&1
     apt upgrade -y >/dev/null 2>&1
-    echo "y" | gem install lolcat > /dev/null
-
     # List of packages to install
     packages=("git" "python" "ncurses-utils" "jq" "figlet" "termux-api" "lsd" "zsh" "ruby" "exa")
 
@@ -145,6 +143,7 @@ echo
         pkg install "$package" -y >/dev/null 2>&1 &
         show_spinner "$package"
     done
+echo "y" | gem install lolcat > /dev/null
 
 pip install lolcat >/dev/null 2>&1
 rm -rf data/data/com.termux/files/usr/bin/chat >/dev/null 2>&1

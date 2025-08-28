@@ -205,7 +205,7 @@ clear
 }
 
 donotchange() {
-clear
+    clear
     echo
     echo
     echo -e ""
@@ -215,45 +215,62 @@ clear
     echo
     echo -e " ${A} ${c}Please Enter Your ${g}Banner Name${c}"
     echo
-# Prompt the user for their name
-read -p "[+]──[Enter Your Name]────► " name
-echo
-    
-    # Specify the input and output file names
-    INPUT_FILE="$HOME/CODEX/files/.zshrc"
-    # Temporary file for output
 
-    # Use sed to replace SIMU with the name and save to a temporary file
-    sed "s/SIMU/$name/g" "$INPUT_FILE" > "$HOME/.zshrc"
-    sed "s/SIMU/$name/g" "$HOME/CODEX/files/.codex.zsh-theme" > "$HOME/.oh-my-zsh/themes/codex.zsh-theme"
-    echo "$name" > "$USERNAME_FILE"
-    # Check if sed was successful
+    # Loop to prompt until valid name (1-8 characters)
+    while true; do
+        read -p "[+]──[Enter Your Name]────► " name
+        echo
+
+        # Validate name length (must be 1-8 characters)
+        if [[ ${#name} -ge 1 && ${#name} -le 8 ]]; then
+            break  # Valid, proceed
+        else
+            echo -e " ${E} ${r}Error: Name must be between 1 and 8 characters. Please try again."
+            echo
+        fi
+    done
+
+    # Specify directories and files
+    D1="$HOME/.termux"
+    USERNAME_FILE="$D1/usernames.txt"
+    VERSION="$D1/dx.txt"
+    INPUT_FILE="$HOME/CODEX/files/.zshrc"
+    THEME_INPUT="$HOME/CODEX/files/.codex.zsh-theme"
+    OUTPUT_ZSHRC="$HOME/.zshrc"
+    OUTPUT_THEME="$HOME/.oh-my-zsh/themes/codex.zsh-theme"
+    TEMP_FILE="$HOME/temp.zshrc"  # Actual temporary file
+
+    # Use sed to replace SIMU with the name and save to temporary file
+    sed "s/SIMU/$name/g" "$INPUT_FILE" > "$TEMP_FILE" &&
+    sed "s/SIMU/$name/g" "$THEME_INPUT" > "$OUTPUT_THEME" &&
+    echo "$name" > "$USERNAME_FILE" &&
+    echo "version 1 1.5" > "$VERSION"  # Fixed version string
+
+    # Check if all operations were successful
     if [[ $? -eq 0 ]]; then
-        # Move the temporary file to the original file
+        # Move the temporary file to the original output
+        mv "$TEMP_FILE" "$OUTPUT_ZSHRC"
         clear
-    echo
-    echo
-    echo -e "		        ${g}Hey ${y}$name"
-    echo -e "${c}              (\_/)"
-    echo -e "              (${y}^ω^${c})     ${g}I'm Dx-Simu${c}"
-    echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"
-    echo
-    echo -e " ${A} ${c}Your Banner created ${g}Successfully¡${c}"
-    echo
-    sleep 3
+        echo
+        echo
+        echo -e "		        ${g}Hey ${y}$name"
+        echo -e "${c}              (\_/)"
+        echo -e "              (${y}^ω^${c})     ${g}I'm Dx-Simu${c}"
+        echo -e "             ⊂(___)づ  ⋅˚₊‧ ଳ ‧₊˚ ⋅"
+        echo
+        echo -e " ${A} ${c}Your Banner created ${g}Successfully¡${c}"
+        echo
+        sleep 3
     else
         echo
         echo -e " ${E} ${r}Error occurred while processing the file."
         sleep 1
-        # Clean up the temporary file if sed fails
+        # Clean up temporary file if sed fails
+        rm -f "$TEMP_FILE"
     fi
-    
-D1="$HOME/.termux"
-USERNAME_FILE="$D1/usernames.txt"
-VERSION="$D1/dx.txt"
-    echo "version 1 1.5" > "$VERSION"
-echo
-clear
+
+    echo
+    clear
 }
 
 banner() {

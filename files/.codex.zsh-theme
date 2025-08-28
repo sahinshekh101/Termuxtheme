@@ -11,7 +11,7 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="] %{$reset_color%}"
 
 setopt PROMPT_SUBST
-RPROMPT='%F{green}[%f%F{green}]%f %F{cyan}%D{%L:%M:%S}%f%F{white} - %f%F{cyan}%D{%p}%f'
+RPROMPT='%F{green}[%f%F{green}]%f %F{cyan}%D{%L:%M:%S}%f%F{white} - %f%F{cyan}%D{%p}%f'
 TMOUT=1
 TRAPALRM() {
 zle reset-prompt

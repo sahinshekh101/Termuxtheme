@@ -225,7 +225,7 @@ donotchange() {
         if [[ ${#name} -ge 1 && ${#name} -le 8 ]]; then
             break  # Valid, proceed
         else
-            echo -e " ${E} ${r}Error: Name must be between 1 and 8 characters. Please try again."
+            echo -e " ${E} ${r}Name must be between ${g}1 and 8${r} characters. ${y}Please try again.${c}"
             echo
         fi
     done

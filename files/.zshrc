@@ -34,6 +34,7 @@ USER="\uf007"
 TERMINAL="\ue7a2"
 PKGS="\uf8d6"
 UPT="\uf49b"
+CAL="\uf073"
 
 bol='\033[1m'
 bold="${bol}\e[4m"
@@ -172,7 +173,7 @@ ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 if [ -z "$ads1" ]; then
 DATE=$(date +"%Y-%b-%a ${g}—${c} %d")
 TM=$(date +"%I:%M:%S ${g}— ${c}%p")
-echo -e " ${g}[${n}${UPT}${g}] ${c}${TM} ${g}| ${c}${DATE}"
+echo -e " ${g}[${n}${CAL}${g}] ${c}${TM} ${g}| ${c}${DATE}"
 else
     echo -e " ${g}[${n}${PKGS}${g}] ${c}This is for you: ${g}$ads1"
     fi

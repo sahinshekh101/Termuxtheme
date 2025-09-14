@@ -9,10 +9,8 @@ alias ls='lsd'
 alias simu='gemini_run'
 alias rd='termux-reload-settings'
 
-# Clear the terminal
 clear
 
-# Define color codes
 r='\033[91m'
 p='\033[1;95m'
 y='\033[93m'
@@ -21,7 +19,6 @@ n='\033[0m'
 b='\033[94m'
 c='\033[96m'
 
-# Define symbols
 X='\033[1;92m[\033[1;00m⎯꯭̽𓆩\033[1;92m]\033[1;96m'
 D='\033[1;92m[\033[1;00m〄\033[1;92m]\033[1;93m'
 E='\033[1;92m[\033[1;00m×\033[1;92m]\033[1;91m'
@@ -40,17 +37,15 @@ bol='\033[1m'
 bold="${bol}\e[4m"
 THRESHOLD=100
 check_disk_usage() {
-    local threshold=${1:-$THRESHOLD}  # Use passed argument or default to THRESHOLD
+    local threshold=${1:-$THRESHOLD}
     local total_size
     local used_size
     local disk_usage
 
-    # Get total size, used size, and disk usage percentage for the home directory
     total_size=$(df -h "$HOME" | awk 'NR==2 {print $2}')
     used_size=$(df -h "$HOME" | awk 'NR==2 {print $3}')
     disk_usage=$(df "$HOME" | awk 'NR==2 {print $5}' | sed 's/%//g')
 
-    # Check if the disk usage exceeds the threshold
     if [ "$disk_usage" -ge "$threshold" ]; then
         echo -e " ${g}[${n}\uf0a0${g}] ${r}WARN: ${c}Disk Full ${g}${disk_usage}% ${c}| ${c}U${g}${used_size} ${c}of ${c}T${g}${total_size}"
     else
@@ -58,7 +53,6 @@ check_disk_usage() {
     fi
 }
 
-# Call the function and store the output
 data=$(check_disk_usage)
 
 
@@ -106,22 +100,45 @@ echo -e "    ${c}╚█████╔╝╚█████╔╝█████
 echo -e "    ${c}░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝${n}"
 echo
 }
-udp() {
-    clear
-    messages=$(curl -s "$CODEX/check_version" | jq -r --arg vs "$version" '.[] | select(.message == $vs) | .message')
 
-# Check if any messages were found and display them
-if [ -n "$messages" ]; then
-    banner  # Assuming you have a function named 'banner'
-    echo -e " ${A} ${c}Tools Updated ${n}| ${c}New ${g}$messages"
-    sleep 3
-    git clone https://github.com/Alpha-Codex369/CODEX.git &> /dev/null &
-    spin
-    cd CODEX
-     bash install.sh
-else
-    clear
-fi
+check_network() {
+  if [ -d /sys/class/net/wlan0 ] && [ "$(cat /sys/class/net/wlan0/operstate)" = "up" ]; then
+    return 0
+  fi
+
+  if [ -d /sys/class/net/rmnet0 ] && [ "$(cat /sys/class/net/rmnet0/operstate)" = "up" ]; then
+    return 0
+  fi
+
+  if [ -d /sys/class/net/usb0 ] && [ "$(cat /sys/class/net/usb0/operstate)" = "up" ]; then
+    return 0
+  fi
+  if [ -d /sys/class/net/rndis0 ] && [ "$(cat /sys/class/net/rndis0/operstate)" = "up" ]; then
+    return 0
+  fi
+
+  return 1
+}
+
+udp() {
+    if check_network; then
+        messages=$(curl -s "$CODEX/check_version" | jq -r --arg vs "$version" '.[] | select(.message == $vs) | .message')
+
+        if [ -n "$messages" ]; then
+            banner
+            echo -e " ${A} ${c}Tools Updated ${n}| ${c}New ${g}$messages"
+            sleep 3
+            git clone https://github.com/Alpha-Codex369/CODEX.git &> /dev/null &
+            spin
+            cd CODEX
+            bash install.sh
+        else
+            clear
+            banner
+        fi
+    else
+        :
+    fi
 }
 
 load() {
@@ -135,7 +152,7 @@ clear
 echo -e "${TERMINAL}${r}●${y}●${b}●${n}"
 sleep 0.2
 }
-widths=$(stty size | awk '{print $2}')  # Get terminal width
+widths=$(stty size | awk '{print $2}')
 width=$(tput cols)
 var=$((width - 1))
 var2=$(seq -s═ ${var} | tr -d '[:digit:]')
@@ -148,10 +165,22 @@ WRITE() { echo -en "\033(B"; }
 HIDECURSOR() { echo -en "\033[?25l"; }
 NORM() { echo -en "\033[?12l\033[?25h"; }
 udp
-HIDECURSOR
+HIDECursor
 load
 clear
-echo -e "${TERMINAL}${r}●${y}●${b}●${n}        ${data}${c}"
+
+width=$(tput cols)
+prefix="${TERMINAL}${r}●${y}●${b}●${n}"
+clean_prefix=$(echo -e "$prefix" | sed 's/\x1b\[[0-9;]*m//g')
+prefix_len=${#clean_prefix}
+clean_data=$(echo -e "${data}" | sed 's/\x1b\[[0-9;]*m//g')
+data_len=${#clean_data}
+data_start=$(((width - data_len) / 2))
+padding=$((data_start - prefix_len))
+if [ $padding -lt 0 ]; then padding=0; fi
+spaces=$(printf '%*s' $padding "")
+echo -e "${prefix}${spaces}${data}${c}"
+
 echo "╔${var2}╗"
 for ((i=1; i<=8; i++)); do
     echo "║${var3}║"
@@ -169,7 +198,6 @@ echo -e "\e[32m[\e[0m\uf489\e[32m] \e[36mCODEX \e[36m1 1.4\e[0m"
 PUT 12 0
 ads1=$(curl -s "$CODEX/ads" | jq -r '.[] | .message')
 
-# Check if ads1 is empty
 if [ -z "$ads1" ]; then
 DATE=$(date +"%Y-%b-%a ${g}—${c} %d")
 TM=$(date +"%I:%M:%S ${g}— ${c}%p")

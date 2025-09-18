@@ -165,7 +165,7 @@ WRITE() { echo -en "\033(B"; }
 HIDECURSOR() { echo -en "\033[?25l"; }
 NORM() { echo -en "\033[?12l\033[?25h"; }
 udp
-HIDECursor
+HIDECURSOR
 load
 clear
 

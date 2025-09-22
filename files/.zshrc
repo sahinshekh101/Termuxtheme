@@ -90,54 +90,30 @@ else
 fi
 
 banner() {
-clear
-echo
-echo -e "    ${y}░█████╗░░█████╗░██████╗░███████╗██╗░░██╗"
-echo -e "    ${y}██╔══██╗██╔══██╗██╔══██╗██╔════╝╚██╗██╔╝"
-echo -e "    ${y}██║░░╚═╝██║░░██║██║░░██║█████╗░░░╚███╔╝░"
-echo -e "    ${c}██║░░██╗██║░░██║██║░░██║██╔══╝░░░██╔██╗░"
-echo -e "    ${c}╚█████╔╝╚█████╔╝██████╔╝███████╗██╔╝╚██╗"
-echo -e "    ${c}░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝${n}"
-echo
-}
-
-check_network() {
-  if [ -d /sys/class/net/wlan0 ] && [ "$(cat /sys/class/net/wlan0/operstate)" = "up" ]; then
-    return 0
-  fi
-
-  if [ -d /sys/class/net/rmnet0 ] && [ "$(cat /sys/class/net/rmnet0/operstate)" = "up" ]; then
-    return 0
-  fi
-
-  if [ -d /sys/class/net/usb0 ] && [ "$(cat /sys/class/net/usb0/operstate)" = "up" ]; then
-    return 0
-  fi
-  if [ -d /sys/class/net/rndis0 ] && [ "$(cat /sys/class/net/rndis0/operstate)" = "up" ]; then
-    return 0
-  fi
-
-  return 1
+    clear
+    echo
+    echo -e "    ${y}░█████╗░░█████╗░██████╗░███████╗██╗░░██╗"
+    echo -e "    ${y}██╔══██╗██╔══██╗██╔══██╗██╔════╝╚██╗██╔╝"
+    echo -e "    ${y}██║░░╚═╝██║░░██║██║░░██║█████╗░░░╚███╔╝░"
+    echo -e "    ${c}██║░░██╗██║░░██║██║░░██║██╔══╝░░░██╔██╗░"
+    echo -e "    ${c}╚█████╔╝╚█████╔╝██████╔╝███████╗██╔╝╚██╗"
+    echo -e "    ${c}░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝${n}"
+    echo
 }
 
 udp() {
-    if check_network; then
-        messages=$(curl -s "$CODEX/check_version" | jq -r --arg vs "$version" '.[] | select(.message == $vs) | .message')
+    messages=$(curl -s "$CODEX/check_version" | jq -r --arg vs "$version" '.[] | select(.message == $vs) | .message')
 
-        if [ -n "$messages" ]; then
-            banner
-            echo -e " ${A} ${c}Tools Updated ${n}| ${c}New ${g}$messages"
-            sleep 3
-            git clone https://github.com/Alpha-Codex369/CODEX.git &> /dev/null &
-            spin
-            cd CODEX
-            bash install.sh
-        else
-            clear
-            banner
-        fi
+    if [ -n "$messages" ]; then
+        banner
+        echo -e " ${A} ${c}Tools Updated ${n}| ${c}New ${g}$version"
+        sleep 3
+        git clone https://github.com/Alpha-Codex369/CODEX.git &> /dev/null &
+        spin
+        cd CODEX
+        bash install.sh
     else
-        :
+        clear
     fi
 }
 

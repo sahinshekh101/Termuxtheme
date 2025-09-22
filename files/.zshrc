@@ -78,7 +78,7 @@ banner
     sleep 1
 }
 
-CODEX="https://codex-host.onrender.com"
+CODEX="https://codex-server-6qr9.onrender.com"
 cd $HOME
 D1=".termux"
 VERSION="$D1/dx.txt"

@@ -115,7 +115,6 @@ echo
     local delay=0.40
     local spinner=('█■■■■' '■█■■■' '■■█■■' '■■■█■' '■■■■█')
 
-    # Function to show the spinner while a command is running
     show_spinner() {
         local pid=$!
         while ps -p $pid > /dev/null; do
@@ -135,28 +134,64 @@ echo
 
     apt update >/dev/null 2>&1
     apt upgrade -y >/dev/null 2>&1
-    # List of packages to install
+    
     packages=("git" "python" "ncurses-utils" "jq" "figlet" "termux-api" "lsd" "zsh" "ruby" "exa")
 
-    # Install each package with spinner
     for package in "${packages[@]}"; do
-        pkg install "$package" -y >/dev/null 2>&1 &
-        show_spinner "$package"
+        if ! dpkg -l | grep -q "^ii  $package "; then
+            pkg install "$package" -y >/dev/null 2>&1 &
+            show_spinner "$package"
+        fi
     done
 
-pip install lolcat >/dev/null 2>&1
-rm -rf data/data/com.termux/files/usr/bin/chat >/dev/null 2>&1
-mv $HOME/CODEX/files/report $HOME/.Codex-simu
-mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat
-chmod +x /data/data/com.termux/files/usr/bin/chat
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1
-rm -rf /data/data/com.termux/files/usr/etc/motd
-chsh -s zsh
-rm -rf ~/.zshrc >/dev/null 2>&1
-cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting >/dev/null 2>&1
-echo "y" | gem install lolcat > /dev/null
+    if ! command -v lolcat >/dev/null 2>&1 || ! pip show lolcat >/dev/null 2>&1; then
+        pip install lolcat >/dev/null 2>&1 &
+        show_spinner "lolcat(pip)"
+    fi
+    
+    rm -rf data/data/com.termux/files/usr/bin/chat >/dev/null 2>&1
+    if [ ! -f "$HOME/.Codex-simu/report" ]; then
+        mv $HOME/CODEX/files/report $HOME/.Codex-simu &
+        show_spinner "Codex-report"
+    fi
+    if [ ! -f "/data/data/com.termux/files/usr/bin/chat" ]; then
+        mv $HOME/CODEX/files/chat.sh /data/data/com.termux/files/usr/bin/chat &
+        chmod +x /data/data/com.termux/files/usr/bin/chat &
+        show_spinner "chat"
+    fi
+    
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh >/dev/null 2>&1 &
+        show_spinner "oh-my-zsh"
+    fi
+    
+    rm -rf /data/data/com.termux/files/usr/etc/motd >/dev/null 2>&1
+    
+    if [ "$SHELL" != "/data/data/com.termux/files/usr/bin/zsh" ]; then
+        chsh -s zsh >/dev/null 2>&1 &
+        show_spinner "zsh-shell"
+    fi
+    
+    if [ ! -f "$HOME/.zshrc" ]; then
+        rm -rf ~/.zshrc >/dev/null 2>&1
+        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &
+        show_spinner "zshrc"
+    fi
+    
+    if [ ! -d "/data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions" ]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions >/dev/null 2>&1 &
+        show_spinner "zsh-autosuggestions"
+    fi
+    
+    if [ ! -d "/data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting" ]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting >/dev/null 2>&1 &
+        show_spinner "zsh-syntax"
+    fi
+    
+    if ! gem list lolcat >/dev/null 2>&1; then
+        echo "y" | gem install lolcat > /dev/null 2>&1 &
+        show_spinner "lolcat「Advance」"
+    fi
 }
 # dx setup
 setup() {
@@ -411,11 +446,7 @@ display_menu() {
 # Main loop
 while true; do
     display_menu
-
-    # Read a single character input with no echo
     read -rsn1 input
-
-    # Handle escape sequences for arrow keys
     if [[ "$input" == $'\e' ]]; then
         read -rsn2 -t 0.1 input
         case "$input" in
@@ -425,13 +456,13 @@ while true; do
                     selected=$((${#options[@]} - 1))
                 fi
                 ;;
-            '[B') # Down arrow
+            '[B') 
                 ((selected++))
                 if [ $selected -ge ${#options[@]} ]; then
                     selected=0
                 fi
                 ;;
-            *) # Ignore other escape sequences
+            *)
                 display_menu
                 ;;
         esac

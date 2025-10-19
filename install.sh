@@ -80,6 +80,8 @@ sp() {
     done
     echo
 }
+sp "$(echo -e ${b}Hello dear User I•m ${y}Dx${n}-${p}Simu${n})"
+clear
 mkdir -p .Codex-simu
 tr() {
 # Check if curl is installed

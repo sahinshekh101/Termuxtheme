@@ -114,7 +114,7 @@ type_effect "[ CODEX STARTED]" 0.04
 sleep 0.2
 type_effect "「HELLO DEAR USER I•M DX-SIMU 」" 0.08
 sleep 0.5
-type_effect "【CODEX WILL PROTECT YOU you】" 0.08
+type_effect "【CODEX WILL PROTECT YOU】" 0.08
 sleep 0.7
 type_effect "<GOODBYE>" 0.08
 sleep 0.2

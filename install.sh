@@ -80,8 +80,52 @@ sp() {
     done
     echo
 }
-sp "$(echo -e ${b}Hello dear User I•m ${y}Dx${n}-${p}Simu${n})"
+
+start() {
 clear
+LIME='\e[38;5;154m'
+CYAN='\e[36m'
+BLINK='\e[5m'
+NC='\e[0m'
+n=$NC
+
+ type_effect() {
+    local text="$1"
+    local delay=$2
+    local term_width=$(tput cols)
+    local text_length=${#text}
+    local padding=$(( (term_width - text_length) / 2 ))
+    printf "%${padding}s" ""
+    for ((i=0; i<${#text}; i++)); do
+        printf "${LIME}${BLINK}${text:$i:1}${NC}"
+        if (( RANDOM % 3 == 0 )); then
+            printf "${CYAN} ${NC}"
+            sleep 0.05
+            printf "\b"
+        fi
+        sleep "$delay"
+    done
+    echo
+}
+echo
+echo
+echo
+type_effect "[ CODEX STARTED]" 0.04
+sleep 0.2
+type_effect "「HELLO DEAR USER I•M DX-SIMU 」" 0.08
+sleep 0.5
+type_effect "【CODEX WILL PROTECT YOU you】" 0.08
+sleep 0.7
+type_effect "<GOODBYE>" 0.08
+sleep 0.2
+type_effect "[ENJOY OUR CODEX]" 0.08
+sleep 0.5
+type_effect "!...............¡" 0.08
+echo
+sleep 2
+clear 
+}
+start
 mkdir -p .Codex-simu
 tr() {
 # Check if curl is installed

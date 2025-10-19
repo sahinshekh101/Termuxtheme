@@ -264,9 +264,10 @@ termux-reload-settings
 }
 dxnetcheck() {
 clear
+clear
 echo
 echo -e "               ${g}╔═══════════════╗"
-echo -e "               ${g}║ ${n}</>  ${c}DARK-X${g}   ║"
+echo -e "               ${g}║ ${n}</>  ${c}CODEX-X${g}  ║"
 echo -e "               ${g}╚═══════════════╝"
 echo -e "  ${g}╔════════════════════════════════════════════╗"
 echo -e "  ${g}║  ${C} ${y}Checking Your Internet Connection¡${g}  ║"

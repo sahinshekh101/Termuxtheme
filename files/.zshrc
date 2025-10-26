@@ -7,6 +7,8 @@ source /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-autosuggestions/z
 source /data/data/com.termux/files/home/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias ls='lsd'
 alias ls='lsd -lh --blocks size,name'
+alias dev='bash /$HOME/.CODEX/dev'
+alias report='bash /$HOME/.CODEX/dev'
 alias rd='termux-reload-settings'
 
 clear
